@@ -1,0 +1,90 @@
+/* pages/Order/Order.wxss */
+#OrderBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #000;
+}
+
+#OrderBox .Classification {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30rpx 20rpx 0 20rpx;
+  font-size: 30rpx;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid rgb(235, 228, 228);
+}
+
+#OrderBox .Classification view {
+  box-sizing: border-box;
+  width: 100rpx;
+  padding-bottom: 20rpx;
+  text-align: center;
+}
+
+#OrderBox .Classification .Clicked {
+  border-bottom: 2px solid red;
+}
+
+#OrderBox .OrderInformation .Module {
+  width: 100%;
+  height: 420rpx;
+  border-bottom: 2px solid rgb(235, 228, 228);
+}
+
+#OrderBox .OrderInformation .ModuleTop {
+  box-sizing: border-box;
+  height: 60rpx;
+  padding: 15rpx 0 20rpx 40rpx;
+  font-size: 30rpx;
+}
+
+#OrderBox .OrderInformation .ModuleTop image {
+  width: 20rpx;
+  height: 20rpx;
+  margin-left: 15rpx;
+}
+
+#OrderBox .OrderInformation .ModuleTop text{
+  float: right;
+  margin-right: 30rpx;
+  color: rgb(241, 67, 67);
+}
+
+#OrderBox .OrderInformation .ModuleContent{
+  box-sizing: border-box;
+  height: 280rpx;
+  padding: 10rpx 0 10rpx 40rpx;
+  border-bottom: 2px solid rgb(235, 228, 228);
+}
+
+#OrderBox .OrderInformation .ModuleContent image{
+    float: left;
+    width: 250rpx;
+    height: 250rpx;
+}
+
+#OrderBox .OrderInformation .ModuleContent view{
+  box-sizing: border-box;
+  float: left;
+  width: 400rpx;
+  height: 250rpx;
+  margin-left: 30rpx;
+  padding-top: 10rpx;
+  font-size: 30rpx;
+}
+
+#OrderBox .OrderInformation .ModuleBottom{
+  box-sizing: border-box;
+  padding: 10rpx 0;
+}
+
+#OrderBox .OrderInformation .ModuleBottom button{
+  box-sizing: border-box;
+  float: right;
+  height: 60rpx;
+  margin-right: 35rpx;
+  font-size: 27rpx;
+  border: .5px solid rgba(000, 000, 000, .2);
+}

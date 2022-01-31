@@ -1,0 +1,52 @@
+<!-- 物流详情页面 -->
+<view id="CheckDetailsHome" wx:for="{{FormInformation}}" wx:key="this">
+    <view class="CurrentState">
+        <view class="StateOrAddress">
+          <image src="../../images/icon/daishouhuo.png" />
+            <view>
+              <text>{{item.State}}\n</text>
+              <text decode="{{true}}">&nbsp;{{item.StateTime}}</text>
+            </view>
+          <image src="../../images/icon/youjiantou.png" />
+        </view>
+        <view class="StateOrAddress">
+          <image src="../../images/icon/dingwei.png" />
+            <view>
+              <text decode="{{true}}">{{item.Receiver}}&nbsp;{{item.Phone}}&nbsp;{{item.Region[0]}}&nbsp;{{item.Region[1]}}
+              </text>
+              <text decode="{{true}}">&nbsp;{{item.Region[2]}}</text> 
+              <text decode="{{true}}">&nbsp;{{item.Address}}</text>
+            </view>
+        </view>
+    </view>
+
+    <view class="CommodityInformation">
+        <view class="InformationTop">
+          <text>{{item.BusinessName}}</text>
+          <image src="../../images/icon/youjiantou.png"></image>
+        </view>
+        <view  class="InformationContent">
+          <image src="{{item.Thumbnail}}"></image>
+          <view>
+             <text>{{item.CommodityFunllName}}</text>
+          </view>
+        </view>
+        <view  class="InformationBottom">
+            <button size="mini">申请售后</button>
+            <button open-type="share" size="mini">分享给好友</button>
+        </view>
+    </view>
+
+    <view class="OrderInformation">
+        <view>
+          <text>订单编号:</text><text>{{item.OrderNumber}}</text>
+        </view>
+        <view>
+          <text>商品快照:</text> <text>核对交易细节时, 可作为判断依据</text>
+        </view>
+        <view>
+          <text>下单时间:</text> <text>{{item.OrderTime}}</text>
+        </view>
+    </view>
+</view>
+

@@ -1,0 +1,21 @@
+<!-- 所有礼品 -->
+<!--pages/TotalGifts/TotalGifts.wxml-->
+<view id="TotalGiftsHome">
+  <view class="TotalGiftsInformation">
+    <block wx:for="{{AllOrders}}" wx:key="this">
+       <view class="Module" style="display:{{StateFour}};">
+        <view class="ModuleContent">
+          <image src="{{item.ImgsUrl}}" />
+          <view>
+            <text>{{item.CommodityFunllName}}</text>
+          </view>
+        </view>
+        <view class="ModuleBottom">
+         <navigator open-type="navigate" url="/pages/RedemptionCode/RedemptionCode?unique={{item.unique}}" >
+          <button size="mini" open-type="launchApp" plain="true">查看兑换码</button>
+         </navigator>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

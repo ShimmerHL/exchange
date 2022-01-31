@@ -1,0 +1,25 @@
+<!-- 主页面 -->
+
+<view id="SearchQuery"> 
+  <view class="FormSearch">
+    <input style="width:{{InputW}}rpx;text-align:{{SearchTitleAlignCenter}}" type="text" placeholder="{{SearchTitlePlaceholder}}" bindtap="InputWFn"/>
+    <button style="opacity: {{BtnOpacity}}" bindtap="BtnNone">取消</button>
+  </view>
+  <view class="SearchTitle" style="display:{{SearchTitleDisplay}}">
+      <block wx:for="{{SearchText}}" wx:key="index" >
+        <view>{{item}}</view>
+      </block>
+  </view>
+</view>
+<view id="Home" wx:for="{{CommodityAll}}" wx:key="*this">
+    <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+      <view class="Home_Box">
+        <image mode="scaleToFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+        <text>{{item.CommodityName}}</text>
+        <view>
+          <text>兑换热度: {{item.Frequency}}</text>
+          <navigator>点击查看详情</navigator>
+        </view>
+      </view>
+    </navigator>
+</view>

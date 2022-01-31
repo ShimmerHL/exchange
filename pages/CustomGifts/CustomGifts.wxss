@@ -1,0 +1,77 @@
+/* pages/CustomGifts/CustomGifts.wxss */
+
+#CustomGiftsHome{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0 15rpx;
+}
+
+.CarouselImg{
+  width: 100%;
+  padding: 30rpx 0;
+  border-bottom: 1px solid rgb(235, 228, 228);
+}
+
+.CarouselImg .CarouselText{
+  margin-bottom:30rpx;
+}
+
+.CarouselImg .Added{
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.CarouselImg .Added image{
+  width: 165rpx;
+  height: 165rpx;
+  margin-left: 15rpx;
+  flex:0 0 23% ;
+}
+
+.CarouselImg .Added view{
+  position: relative;
+}
+
+.CarouselImg .Added .ImgBtn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.CommodityName{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30rpx 0 30rpx 15rpx;
+  border-bottom: 1px solid rgb(235, 228, 228);
+}
+
+.CommodityName input{
+    width: 650rpx;
+    margin: 10rpx 0 10rpx 20rpx;
+    padding: 10rpx 0 10rpx 20rpx;
+    font-size: 35rpx;
+    border-bottom: 1px solid rgb(235, 228, 228);
+    border-right: 1px solid rgb(235, 228, 228);
+    border-radius: 0 10rpx 0 10rpx;
+}
+.CommodityName .TextIptAdd{
+  display: block;
+  margin-left: 565rpx;
+}
+
+.CommodityName .TextIptRemove{
+  display: block;
+  margin-left: 625rpx;
+  color: red;
+}
+
+.CarouselBtn button{
+  margin-top: 80rpx;
+  background-color:rgba(255, 0, 0, .7);
+  color: #fff;
+}

@@ -1,0 +1,214 @@
+/* pages/Details/Details.wxss */
+page{
+  height:100%
+}
+
+#DetailsBox .SwiperCarousel {
+  height: 700rpx;
+}
+
+#DetailsBox .title {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 30rpx;
+  padding-left: 30rpx;
+  font-size: 35rpx;
+}
+
+#DetailsBox .title text {
+  display: inline-block;
+  width: 80%;
+}
+
+#DetailsBox .title button {
+  display: inline-block;
+  position: absolute;
+  top: -10%;
+  right: 0;
+  height: 60rpx;
+  border-radius: 30rpx 0 0 30rpx;
+  background-color: rgba(206, 243, 147, .5) !important;
+}
+
+#DetailsBox .Frequency {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 1%;
+  padding-right: 30rpx;
+  font-size: 30rpx;
+  color: rgb(197, 175, 193);
+}
+
+#DetailsBox .Frequency view {
+  float: right;
+}
+
+#DetailsBox .Remaining {
+  margin-top: 30rpx;
+  padding: 0 0 20rpx 30rpx;
+  font-size: 37rpx;
+  font-weight: 900;
+}
+
+#DetailsBox .Specification {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 30rpx;
+  color: rgb(116, 113, 113);
+  border-top: 10rpx solid rgba(219, 209, 217,.5);
+}
+
+#DetailsBox .Specification .SpecificationTitle {
+  margin-bottom: 25rpx;
+  font-size: 35rpx;
+  color: rgb(248, 86, 86);
+}
+
+#DetailsBox .Specification .SpecificationBlock {
+  box-sizing: border-box;
+  width: 94%;
+  margin: 30rpx auto;
+  padding: 20rpx 0 20rpx 20rpx;
+  background-color: #eee;
+  border-radius: 15rpx;
+}
+
+#DetailsBox .BusinessName{
+  margin: 0 0 30rpx 30rpx;
+  font-size: 37rpx;
+  font-weight: 600;
+}
+
+#DetailsBox .Exhaustive {
+  border-top: 10rpx solid rgba(219, 209, 217,.5);
+}
+
+#DetailsBox .Exhaustive view{
+  margin: 20rpx 0 20rpx 20rpx;
+  font-size: 37rpx;
+  font-weight: 900;
+
+}
+
+#DetailsBox .Exhaustive image {
+  display: flex;
+  width: 100%;
+}
+
+#DetailsBox .explanation{
+  height: 200rpx;
+}
+
+#SubmitRedemption{
+  position: fixed;
+  bottom: 3%;
+  left: 50%;
+  margin-left: -350rpx;
+  width: 700rpx;
+  height: 90rpx;
+  border-radius: 50rpx;
+  background-color: rgb(50, 50, 240) !important;
+  color: #fff;
+}
+
+#InputPage{
+  position:fixed;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#InputPage .InputPageBgc{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 60%;
+}
+
+#InputPage .InputPageBox{
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  padding: 20rpx 0 0 30rpx;
+  background-color: #fff;
+  border: 1px solid red;
+  border-radius: 30rpx 30rpx 0 0;
+  z-index: 999;
+}
+
+#InputPage .InputPageHead {
+  width: calc(100% - 60rpx);
+  padding: 0 0 20rpx 30rpx;
+  text-align: center;
+}
+
+#InputPage .InputPageHead view:nth-child(1) text{
+  vertical-align:middle;
+  height: 50rpx;
+}
+
+#InputPage .InputPageHead view:nth-child(1) image{
+    float: right;
+    vertical-align:middle;
+    width: 50rpx;
+    height: 50rpx;
+}
+
+#InputPage .InputPageContent{
+  width: 100%;
+  height: 150rpx;
+}
+
+#InputPage .InputPageContent image{
+  display: inline-block;
+  width: 150rpx;
+  height: 150rpx;
+}
+
+#InputPage .InputPageContent view{
+  display: inline-block;
+  margin-left: 20rpx;
+  height: 150rpx;
+  width: calc(100% - 200rpx);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#InputPage .InputPageBottom{
+    margin-top: 30rpx;
+    width: 100%;
+}
+
+#InputPage .InputPageBottomBox{
+  margin: 20rpx auto 0;
+}
+
+#InputPage .InputPageBottom text{
+  display: inline-block;
+  margin-right: 10rpx;
+  width: 170rpx;
+  vertical-align: middle;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+#InputPage .InputPageBottom input{
+  display:inline-block;
+  width: 400rpx;
+  height: 50rpx;
+  padding-left: 10rpx;
+  margin: auto;
+  vertical-align: middle;
+}
+
+#InputPage .InputPageBottom button{
+  margin-top: 30rpx;
+    width: 90%;
+    height: 70rpx;
+    background-color: rgba(255, 000, 000,1);
+    border-radius: 530rpx;
+    color: #fff;
+}

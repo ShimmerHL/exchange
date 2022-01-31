@@ -1,0 +1,78 @@
+<!-- 订单状态页面 -->
+<view id="OrderBox">
+  <view class="Classification">
+    <view class="All {{All}}" data-name="All" data-State="All" bindtap="OrderClick">全部</view>
+    <view class="Unconfirmed {{Unconfirmed}}" data-name="Unconfirmed" data-State="daiqueren" bindtap="OrderClick">已完成</view>
+    <view class="NotShipped {{NotShipped}}" data-name="NotShipped" data-State="daifahuo" bindtap="OrderClick">待发货</view>
+    <view class="Receipt {{Receipt}}" data-name="Receipt" data-State="daishouhuo" bindtap="OrderClick">待收货</view>
+    <view class="AfterSale {{AfterSale}}" data-name="AfterSale" data-State="shouhou" bindtap="OrderClick">售后中</view>
+  </view>
+  <view class="OrderInformation">
+    <block wx:for="{{AllOrders}}" wx:key="this">
+      <view class="Module" style="display:{{StateOne}};" wx:if="{{item.State == 0}}">
+        <view class="ModuleTop">
+          {{item.BusinessName}}
+          <image src="../../images/icon/youjiantou.png" />
+          <text>交易成功</text>
+        </view>
+        <view class="ModuleContent">
+          <image src="{{item.Thumbnail}}" />
+          <view>
+            <text>{{item.CommodityFunllName}}</text>
+          </view>
+        </view>
+        <view class="ModuleBottom">
+          <button size="mini" open-type="launchApp" plain="true">查看详情</button>
+        </view>
+      </view>
+       <view class="Module" style="display:{{StateTwo}};" wx:elif="{{item.State == 1}}">
+        <view class="ModuleTop">
+          {{item.BusinessName}}
+          <image src="../../images/icon/youjiantou.png" />
+          <text>待发货</text>
+        </view>
+        <view class="ModuleContent">
+          <image src="{{item.Thumbnail}}" />
+          <view>
+            <text>{{item.CommodityFunllName}}</text>
+          </view>
+        </view>
+        <view class="ModuleBottom">
+          <button size="mini" open-type="launchApp" plain="true">再次兑换</button>
+        </view>
+      </view>
+       <view class="Module" style="display:{{StateThree}};" wx:elif="{{item.State == 2}}">
+        <view class="ModuleTop">
+          {{item.BusinessName}}
+          <image src="../../images/icon/youjiantou.png" />
+          <text>待发货</text>
+        </view>
+        <view class="ModuleContent">
+          <image src="{{item.Thumbnail}}" />
+          <view>
+            <text>{{item.CommodityFunllName}}</text>
+          </view>
+        </view>
+        <view class="ModuleBottom">
+          <button size="mini" open-type="launchApp" plain="true">查看详情</button>
+        </view>
+      </view>
+       <view class="Module" style="display:{{StateFour}};" wx:if="{{item.State == 3}}">
+        <view class="ModuleTop">
+          {{item.BusinessName}}
+          <image src="../../images/icon/youjiantou.png" />
+          <text>售后中</text>
+        </view>
+        <view class="ModuleContent">
+          <image src="{{item.Thumbnail}}" />
+          <view>
+            <text>{{item.CommodityFunllName}}</text>
+          </view>
+        </view>
+        <view class="ModuleBottom">
+          <button size="mini" open-type="launchApp" plain="true" >查看详情</button>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

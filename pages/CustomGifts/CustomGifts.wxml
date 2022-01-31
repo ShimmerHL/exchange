@@ -1,0 +1,54 @@
+<!--pages/CustomGifts/CustomGifts.wxml-->
+<!-- 定制礼品页面 -->
+<view id="CustomGiftsHome">
+  <view class="CarouselImg">
+    <view class="CarouselText">轮播图片: (最多5张图片)</view>
+     <view class="Added">
+      <block wx:for="{{CarouselPictures}}" wx:key="index">
+        <view>
+          <image class="Imgs" src="{{item}}"/>
+          <image class="ImgBtn" src="../../images/icon/hongchahao.png" data-index="{{index}}" bindtap="CarouselPicturesRemove" />
+        </view>
+      </block>
+      <image src="../../images/icon/tianjiatupian.png" bindtap="CarouselPicturesAdd" />
+     </view>
+  </view>
+  <view class="CommodityName">
+      <view>
+        <text>商品缩略名: </text>
+        <input type="text" placeholder="请输入商品缩略名" data-name= "CommodityName" bindinput="newforms" />
+      </view>
+      <view>
+        <text>商品全名: </text>
+        <input type="text" placeholder="请输入商品全名" data-name= "CommodityFunllName" bindinput="newforms" />
+      </view>
+      <view>
+        <text>企业名称: </text>
+        <input type="text" placeholder="请输入企业名称" data-name= "BusinessName" bindinput="newforms" />
+      </view>
+      <view>
+        <text>规格: </text>
+        <block wx:for="{{Specification}}" wx:key="index">
+            <text class="TextIptRemove" data-index="{{index}}" bindtap="TextIptRemove">删除</text>
+            <input type="text" placeholder="请输入规格" data-name= "BusinessName" bindinput="newforms" value="{{Specification[index]}}" data-name="{{index}}" />
+        </block>
+        <text class="TextIptAdd" bindtap="TextIptAdd">添加一行</text>
+      </view>
+  </view>
+  <view class="CarouselImg">
+    <view class="CarouselText">详细图片: (最多5张图片)</view>
+     <view class="Added">
+      <block wx:for="{{IntroduceImg}}" wx:key="index">
+        <view>
+          <image class="Imgs" src="{{item}}"/>
+          <image class="ImgBtn" src="../../images/icon/hongchahao.png" data-index="{{index}}" bindtap="IntroduceImgRemove" />
+        </view>
+      </block>
+      <image src="../../images/icon/tianjiatupian.png" bindtap="IntroduceImgAdd" />
+     </view>
+  </view>
+  <view class="CarouselBtn">
+    <button>提交</button>
+  </view>
+</view>
+

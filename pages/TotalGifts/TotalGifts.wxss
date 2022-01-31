@@ -1,0 +1,43 @@
+/* pages/TotalGifts/TotalGifts.wxss */
+#TotalGiftsHome .TotalGiftsInformation .Module {
+  width: 100%;
+  height: 360rpx;
+  border-bottom: 2px solid rgb(235, 228, 228);
+}
+
+#TotalGiftsHome .TotalGiftsInformation .ModuleContent{
+  box-sizing: border-box;
+  height: 280rpx;
+  padding: 10rpx 0 10rpx 40rpx;
+  border-bottom: 2px solid rgb(235, 228, 228);
+}
+
+#TotalGiftsHome .TotalGiftsInformation .ModuleContent image{
+    float: left;
+    width: 250rpx;
+    height: 250rpx;
+}
+
+#TotalGiftsHome .TotalGiftsInformation .ModuleContent view{
+  box-sizing: border-box;
+  float: left;
+  width: 400rpx;
+  height: 250rpx;
+  margin-left: 30rpx;
+  padding-top: 10rpx;
+  font-size: 30rpx;
+}
+
+#TotalGiftsHome .TotalGiftsInformation .ModuleBottom{
+  box-sizing: border-box;
+  padding: 10rpx 0;
+}
+
+#TotalGiftsHome .TotalGiftsInformation .ModuleBottom button{
+  box-sizing: border-box;
+  float: right;
+  height: 60rpx;
+  margin-right: 35rpx;
+  font-size: 27rpx;
+  border: .5px solid rgba(000, 000, 000, .2);
+}

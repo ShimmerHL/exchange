@@ -1,0 +1,122 @@
+/* pages/CheckDetails/CheckDetails.wxss */
+
+#CheckDetailsHome{
+  width: 100;
+  height: 100%;
+}
+
+.CurrentState{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+  border-bottom: 15rpx solid rgba(235, 228, 228, .5);
+}
+
+.CurrentState .StateOrAddress {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  padding: 20rpx 0;
+  border-top: 0.5rpx solid rgba(235, 228, 228, .5);
+}
+
+.CurrentState .StateOrAddress view{
+  display: inline-block;
+  margin-left: 30rpx;
+}
+
+.CurrentState .StateOrAddress view text:nth-child(1){
+  margin-left: 10rpx;
+}
+
+.CurrentState .StateOrAddress image:nth-child(1){
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.CurrentState .StateOrAddress image:nth-child(3){
+  position: absolute;
+  right: 0;
+  top: calc(50% - 15rpx);
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.CommodityInformation{
+  width: 100%;
+  border-bottom: 15rpx solid rgba(235, 228, 228, .5);
+}
+.CommodityInformation .InformationTop{
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx 30rpx;
+}
+
+.CommodityInformation .InformationTop image{
+  position: absolute;
+  top: calc(50% - 15rpx);
+  right: 30rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.CommodityInformation .InformationContent{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 30rpx;
+}
+
+.CommodityInformation .InformationContent image{
+    width: 250rpx;
+    height: 250rpx;
+    vertical-align: middle;
+}
+
+.CommodityInformation .InformationContent view{
+  display: inline-block;
+  box-sizing: border-box;
+  margin-left: 30rpx;
+  padding-top: 10rpx;
+  height: 250rpx;
+  width: 400rpx;
+  vertical-align: middle;
+}
+
+.CommodityInformation .InformationBottom {
+  width: 100%;
+  padding-bottom: 20rpx;
+  height: 70rpx;
+}
+
+.CommodityInformation .InformationBottom button{
+  float: right;
+  margin-right: 15rpx;
+  border: .5rpx solid rgba(000, 000, 000, .3);
+  font-weight: 400;
+}
+
+.CommodityInformation .InformationBottom button:nth-child(1){
+  border: .5rpx solid rgba(255, 000, 000, .3);
+  color: red;
+}
+
+.OrderInformation{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  border-bottom: 15rpx solid rgba(235, 228, 228, .5);
+}
+
+.OrderInformation view{
+  margin-bottom: 10rpx;
+}
+
+.OrderInformation text{
+  color: rgb(138, 112, 112);
+}
+
+.OrderInformation view text:nth-child(1){
+  margin-right: 30rpx;
+}

@@ -1,0 +1,40 @@
+{
+  "pages":[
+    "pages/Index/Index",
+    "pages/Personal/Personal",
+    "pages/Details/Details",
+    "pages/Order/Order",
+    "pages/CheckDetails/CheckDetails",
+    "pages/ModifySetup/ModifySetup",
+    "pages/CustomGifts/CustomGifts",
+    "pages/TotalGifts/TotalGifts",
+    "pages/RedemptionCode/RedemptionCode"
+  ],
+  "entryPagePath":  "pages/Personal/Personal",
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "兑换商城",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "list": [{
+      "pagePath":"pages/Index/Index",
+      "text":"兑换商城",
+      "iconPath":"./images/navigation/shangchengduihuan.png",
+      "selectedIconPath":"./images/navigation/shangchengduihuanlan.png"
+    },{
+      "pagePath":"pages/Order/Order",
+      "text":"我的订单",
+      "iconPath":"./images/navigation/dingdan.png",
+      "selectedIconPath":"./images/navigation/dingdanlan.png"
+    },{
+      "pagePath":"pages/Personal/Personal",
+      "text":"个人中心",
+      "iconPath":"./images/navigation/yonghu.png",
+      "selectedIconPath":"./images/navigation/yonghulan.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

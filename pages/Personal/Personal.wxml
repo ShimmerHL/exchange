@@ -1,0 +1,96 @@
+<!-- 个人信息页面 -->
+<view id="PersonalBox">
+    <view class="UserBox" >
+
+        <block wx:if="{{LoginStatus}}">
+            <view bindtap="JumpEdit">
+                <image src="{{avatarUrl}}"></image>
+                 <button open-type="launchApp" plain="true">{{nickName}}</button>
+            </view>
+        </block>
+        <block wx:else>
+            <view>
+                <image src="../../images/icon/yonghuhui.png"></image>
+                <button open-type="launchApp" plain="true" bindtap="information">点击登录</button>
+            </view>
+        </block>
+        
+    </view>
+
+    <view class="ActionBar">
+        <view class="ActionBarTop" data-sequence="All" bindtap="ActionBar">
+            <text>我的订单</text>
+            <image src="../../images/icon/youjiantou.png"></image>
+            <text>全部订单</text>
+
+        </view>
+
+        <view class="ActionBarBottom">
+            <view data-sequence="daiqueren" bindtap="ActionBar">
+                <image src="../../images/icon/daiqueren.png"></image>
+                <text>已完成</text>
+            </view>
+            <view data-sequence="daifahuo" bindtap="ActionBar">
+                <image src="../../images/icon/daifahuo.png"></image>
+                <text>待发货</text>
+            </view>
+            <view data-sequence="daishouhuo" bindtap="ActionBar">
+                <image src="../../images/icon/daishouhuo.png"></image>
+                <text>待收货</text>
+            </view>
+            <view data-sequence="shouhou" bindtap="ActionBar">
+                <image src="../../images/icon/shouhou.png"></image>
+                <text>售后中</text>
+            </view>
+        </view>
+    </view>
+    <view class="BusinessUsers" wx:if="{{!Merchant}}">
+        <view bindtap="Controls" data-btn="woshiqiyezhanghu">
+            <image src="../../images/icon/qiye.png"></image>
+            <text>我是企业账户</text>
+        </view>
+    </view>
+    <view class="BusinessUsers" wx:if="{{Merchant}}">
+        <view bindtap="Customize">
+            <image src="../../images/icon/dingzhi.png"></image>
+             <text>定制礼品</text>
+        </view>
+        <view bindtap="AllRedemptionCodes">
+             <image src="../../images/icon/duihuanma.png"></image>
+            <text>所有礼品</text>
+        </view>
+    </view>
+</view>
+<view class="EnterpriseLoginAndAdd" style="display:{{EnterpriseLoginAndAdd}};">>
+        <view class="EnterpriseLogin Enterprise" style="display:{{EnterpriseLogin}};">
+            <view>
+                <input type="text" placeholder="请输入营业注册号" data-name= "CommodityName" bindinput="newforms" />
+            </view>
+            <view>
+                <input type="text" placeholder="请输入密码" data-name= "CommodityName" bindinput="newforms" />
+            </view>
+            <view class="EnterpriseBtn">
+                <button bindtap="Controls" data-btn="quxiao">取消</button>
+                <button bindtap="Controls" data-btn="denglu">登录</button>
+            </view>
+            <view class="AddBtnOne AddBtn" style="color:{{AddBtnOne}};" bindtap="Controls" data-btn="woshiqiyezhanghu">登录</view>
+             <view class="AddBtnTwo AddBtn" style="color:{{AddBtnTwo}};" bindtap="Controls" data-btn="zhucejiemian">注册</view>
+        </view>
+        <view class="EnterpriseAdd Enterprise" style="display:{{EnterpriseAdd}};">
+            <view>
+                <input type="text" placeholder="请输入营业注册号" data-name= "CommodityName" bindinput="newforms" />
+            </view>
+            <view>
+                <input type="text" placeholder="请输入密码" data-name= "CommodityName" bindinput="newforms" />
+            </view>
+            <view>
+                <input type="text" placeholder="请再次输入密码" data-name= "CommodityName" bindinput="newforms" />
+            </view>
+            <view class="EnterpriseBtn">
+                <button bindtap="Controls" data-btn="quxiao">取消</button>
+                <button bindtap="Controls" data-btn="zhuce">注册</button>
+            </view>
+            <view class="AddBtnOne AddBtn" style="color:{{AddBtnOne}};" bindtap="Controls" data-btn="woshiqiyezhanghu">登录</view>
+             <view class="AddBtnTwo AddBtn" style="color:{{AddBtnTwo}};" bindtap="Controls" data-btn="zhucejiemian">注册</view>
+        </view>
+</view>

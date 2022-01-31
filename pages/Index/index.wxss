@@ -1,0 +1,96 @@
+/**index.wxss**/
+#SearchQuery{
+  height: 100%;
+  position: relative;
+}
+#SearchQuery .FormSearch{
+  width: 120%;
+}
+
+#SearchQuery .FormSearch input{
+  box-sizing: border-box;
+  display: inline-block;
+  height: 70rpx;
+  margin-left: 15rpx;
+  padding-left: 30rpx;
+  vertical-align: middle;
+  border: 1px solid rgba(000, 000, 000, .5);
+  border-radius: 30rpx;
+  transition: 1s;
+}
+
+#SearchQuery .FormSearch button{
+  display: inline-block;
+  width: 180rpx;
+  font-size: 30rpx;
+  vertical-align: middle;
+  background-color: #fff;
+  color: red;
+  transition: 1s;
+}
+
+#SearchQuery .SearchTitle{
+  box-sizing: border-box;
+  position: absolute;
+  top: 80rpx;
+  left: 0;
+  width: 100%;
+  height: 1205rpx;
+  padding: 0 20rpx;
+  background-color: #fff;
+  z-index: 9999;
+}
+
+#SearchQuery .SearchTitle view{
+   padding: 20rpx 0 20rpx 25rpx;
+   border-bottom: 1px solid #000;
+}
+
+#Home {
+  width: 100%;
+}
+
+#Home .Home_Box {
+  position: relative;
+  float: left;
+  width: 351.5rpx;
+  height: 500rpx;
+  margin: 15rpx 0 0 15rpx;
+  border: 1px solid rgba(000, 000, 000, .3);
+  border-radius: 20rpx;
+  text-align: center;
+}
+
+#Home .Home_Box image {
+  width: 350rpx;
+  height: 350rpx;
+}
+
+#Home .Home_Box text:nth-child(2) {
+  display: block;
+  width: 300rpx;
+  height: 100rpx;
+  font-size: 30rpx;
+  margin: 20rpx auto 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#Home .Home_Box view {
+  position: absolute;
+  bottom: 5%;
+  width: 90%;
+  padding: 0 20rpx;
+}
+
+#Home .Home_Box view text {
+  float: left;
+  font-size: 25rpx;
+}
+
+#Home .Home_Box view navigator {
+  float: right;
+  font-size: 12px;
+  color: blue;
+}

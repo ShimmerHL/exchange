@@ -1,0 +1,31 @@
+<!-- 修改信息界面 -->
+ <view id="ModifySetupHome">
+  <view class="ModifySetupBorder" />
+
+  <view class="ModifySetupBox" wx:for="{{AccountInformation}}" wx:key="index">
+    <view class="Avatar">
+      <text>头像</text>
+      <image src="{{Avatar}}" />
+    </view>
+    <view class="NickName">
+      <text>昵称</text>
+      <input type="text" value="{{NameChange}}"  bindblur="NameInput" />
+    </view>
+    <picker mode="selector" value="{{Sex}}" range="{{SexRange}}" bindchange="BindChange" data-change="Sex">
+        <text>性别</text>
+        <text>{{SexRange[Sex]}}</text>
+    </picker>
+    <picker mode="date"start="2015-09-01" end="2017-09-01" value="{{DateBirth}}"bindchange="BindChange" data-change="DateBirth">
+        <text>出生年月</text>
+         <text>{{DateBirth}}</text>
+    </picker>
+    <view class="NickName">
+      <text>手机号码</text>
+      <input type="text" value="{{PhoneChange}}" bindblur	="PhoneInput" />
+    </view>
+     <view class="NickName">
+      <text>邮箱</text>
+      <input type="email" selection-start="-10" value="{{EmailChange}}" bindblur	="EmailInput" />
+    </view>
+  </view>
+ </view>
