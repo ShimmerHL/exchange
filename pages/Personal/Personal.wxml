@@ -64,10 +64,10 @@
 <view class="EnterpriseLoginAndAdd" style="display:{{EnterpriseLoginAndAdd}};">>
         <view class="EnterpriseLogin Enterprise" style="display:{{EnterpriseLogin}};">
             <view>
-                <input type="text" placeholder="请输入营业注册号" data-name= "CommodityName" bindinput="newforms" />
+                <input type="text" placeholder="请输入营业注册号" data-name= "Registration" bindinput="EnterpriseUserLogin" />
             </view>
             <view>
-                <input type="text" placeholder="请输入密码" data-name= "CommodityName" bindinput="newforms" />
+                <input type="text" placeholder="请输入密码" data-name= "Password" bindinput="EnterpriseUserLogin" />
             </view>
             <view class="EnterpriseBtn">
                 <button bindtap="Controls" data-btn="quxiao">取消</button>
@@ -78,13 +78,13 @@
         </view>
         <view class="EnterpriseAdd Enterprise" style="display:{{EnterpriseAdd}};">
             <view>
-                <input type="text" placeholder="请输入营业注册号" data-name= "CommodityName" bindinput="newforms" />
+                <input type="text" placeholder="请输入营业注册号" data-name= "Registration" bindinput="AddEnterpriseUser" />
             </view>
             <view>
-                <input type="text" placeholder="请输入密码" data-name= "CommodityName" bindinput="newforms" />
+                <input type="text" placeholder="请输入密码" data-name= "Password" bindinput="AddEnterpriseUser" />
             </view>
             <view>
-                <input type="text" placeholder="请再次输入密码" data-name= "CommodityName" bindinput="newforms" />
+                <input type="text" placeholder="请再次输入密码" data-name= "TwoPassword" bindinput="AddEnterpriseUser" />
             </view>
             <view class="EnterpriseBtn">
                 <button bindtap="Controls" data-btn="quxiao">取消</button>

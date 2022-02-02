@@ -144,7 +144,7 @@ Page({
       },
       success:(res)=>{
         //console.log(res.data)
-        let json = JSON.parse(JSON.stringify(res.data))
+        let json = Util.JsonObj(res.data)
         for (let index = 0; index < json.CarouselPictures.length; index++) {
           json.CarouselPictures[index] = app.AppWeb.url + json.CarouselPictures[index] 
         }
