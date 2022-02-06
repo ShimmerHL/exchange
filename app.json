@@ -10,7 +10,7 @@
     "pages/TotalGifts/TotalGifts",
     "pages/RedemptionCode/RedemptionCode"
   ],
-  "entryPagePath":  "pages/Personal/Personal",
+  "entryPagePath":  "pages/CustomGifts/CustomGifts",
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",

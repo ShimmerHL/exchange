@@ -12,7 +12,7 @@ Page({
     "Registration": "",
     "Password": "",
     "TwoPassword": "",
-    "UserOpenid":""
+    "UserOpenid": ""
   },
   information() {
     wx.getUserProfile({
@@ -34,11 +34,12 @@ Page({
                   'content-type': 'application/json'
                 },
                 success: (ReqSuc) => {
-                  let UserOpenid = ReqSuc.data.UserOpenid
+                  let UserOpenid = ReqSuc.data.Data[0].Appid
                   if (ReqSuc.statusCode == 200) {
                     res(UserOpenid)
                     this.setData({
-                      "Appid": UserOpenid
+                      "Appid": UserOpenid,
+                      "nickName": ReqSuc.data.Data[0].nickName
                     })
                   } else {
                     console.log("请求失败")
@@ -113,33 +114,37 @@ Page({
         wx.request({
           url: app.AppWeb.url + '/EnterpriseUserLogin',
           data: {
-            "Appid" : this.data.Appid,
+            "Appid": this.data.Appid,
             "Registration": this.data.Registration,
             "Password": this.data.Password
           },
-          method:"POST",
+          method: "POST",
           header: {
-            'content-type': 'application/json' 
+            'content-type': 'application/json'
           },
           success: (res) => {
-            if(res.data.Code == 200){
-              wx.setStorageSync("Merchant",res.data.Merchant)
+            if (res.data.Code == 200) {
+              wx.setStorageSync("Registration", this.data.Registration)
+              wx.setStorageSync("Merchant", res.data.Merchant)
               this.setData({
-                "Merchant" : res.data.Merchant
+                "Merchant": res.data.Merchant
               })
-            } if (res.data.Code == 406 && res.data.mgs == "AppidError") {
+            }
+            if (res.data.Code == 406 && res.data.mgs == "AppidError") {
               wx.showToast({
                 title: '登录异常请重新登陆',
-                icon:"none",
-                duration:2000
+                icon: "none",
+                duration: 2000
               })
-            } if (res.data.Code == 406 && res.data.mgs == "RegistrationError") {
+            }
+            if (res.data.Code == 406 && res.data.mgs == "RegistrationError") {
               wx.showToast({
                 title: '账号或密码不正确请重新登陆',
-                icon:"none",
-                duration:2000
+                icon: "none",
+                duration: 2000
               })
-            } if (res.data.Code == 406 && res.data.mgs == "Error") {
+            }
+            if (res.data.Code == 406 && res.data.mgs == "Error") {
               Utils.ShowToastErr()
             }
 
@@ -225,9 +230,6 @@ Page({
         })
       },
       fail: () => {
-        this.setData({
-          "nickName": ""
-        })
       }
     })
     wx.getStorage({
@@ -243,19 +245,21 @@ Page({
         })
       }
     })
-    wx.getStorage({
-      key: "nickName",
-      success: (res) => {
-        this.setData({
-          "nickName": res.data
-        })
-      },
-      fail: () => {
-        this.setData({
-          "nickName": ""
-        })
-      }
-    })
+    if (this.data.Appid !== "") {
+      wx.getStorage({
+        key: "nickName",
+        success: (res) => {
+          this.setData({
+            "nickName": res.data
+          })
+        },
+        fail: () => {
+          this.setData({
+            "nickName": ""
+          })
+        }
+      })
+    }
     wx.getStorage({
       key: "Appid",
       success: (res) => {
@@ -280,9 +284,13 @@ Page({
         this.setData({
           "Merchant": ""
         })
-        wx.showToast({
-          title: '商家状态错误请重新登录',
-        })
+        // if (this.data.Appid !== "" && this.data.Appid !== undefined && this.data.Appid !== null) {
+        //   wx.showToast({
+        //     title: '商家状态错误请重新登录',
+        //     icon: "none",
+        //     duration: 2000
+        //   })
+        // }
       }
     })
   },

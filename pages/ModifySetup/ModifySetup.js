@@ -1,4 +1,5 @@
 // pages/ModifySetup/ModifySetup.js
+let app = getApp()
 Page({
 
   /**
@@ -11,17 +12,32 @@ Page({
       "Sex": "0",
       "DateBirth": "",
       "Phone": "",
-      "Email":""
+      "Email": ""
     }],
     "Avatar": "",
     "NickName": "",
     "Sex": "0",
     "SexRange": ["保密", "男", "女"],
-    "DateBirth": "1970-1-1",
+    "DateBirth": "",
     "Phone": "",
-    "NameChange":"",
-    "PhoneChange":"",
-    "EmailChange":""
+    "NameChange": "",
+    "PhoneChange": "",
+    "EmailChange": "",
+    "Appid":""
+  },
+  ShowToastSuccess(){
+    wx.showToast({
+      title: '修改成功',
+      icon: "success",
+      duration: 2000
+    })
+  },
+  ShowToastError(){
+    wx.showToast({
+      title: '修改失败',
+      icon: "error",
+      duration: 2000
+    })
   },
   BindChange(e) { //性别 出生年月选择器
     switch (e.target.dataset.change) {
@@ -36,102 +52,204 @@ Page({
         })
         break;
     }
-    this.setData({
-      Sex: e.detail.value
-    })
   },
-  NameInput(e){ //用户名格式
+  NameInput(e) { //用户名格式
     let value = e.detail.value
 
-    if(value.length > 16) {
+    if (value.length > 16) {
       wx.showModal({
         title: '名字长度不能超过16个字符',
-        complete:()=>{
+        complete: () => {
           this.setData({
-            NameChange:this.data.NickName
+            NameChange: this.data.NickName
           })
         }
       })
       return;
     }
-    this.setData({
-      NameChange:value,
-      NickName:value
-    })
-  },
-  PhoneInput(e){ //电话格式
-    let value = e.detail.value
-    let reg_tel = /^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/  
 
-    if(!reg_tel.test(value)) {
+    wx.request({
+      url: app.AppWeb.url + '/ModifySetup/ReviseNickName',
+      data: {
+        NickName: value
+      },
+      method: "POST",
+      header: {
+        "content-type": "application/json"
+      },
+      success: (res) => {
+        if(res.data.Code == 200){
+          this.ShowToastSuccess()
+          this.setData({
+            NameChange: value,
+            NickName: value
+          })
+        }else{
+          this.setData({
+            NameChange: this.data.NickName
+          })
+          this.ShowToastError()
+        }
+      },
+      fail: (res) => {
+        this.setData({
+          NameChange: this.data.NameChange,
+          NickName: this.data.NickName
+        })
+        this.ShowToastError()
+      }
+    })
+
+  },
+  PhoneInput(e) { //电话格式
+    let value = e.detail.value
+    let reg_tel = /^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/
+
+    if (!reg_tel.test(value)) {
       wx.showModal({
         title: '电话格式不正确',
-        complete:()=>{
+        complete: () => {
           this.setData({
-            PhoneChange:this.data.Phone
+            PhoneChange: this.data.Phone
           })
         }
       })
       return;
     }
-    this.setData({
-      EmailChange:value, //修改后的电话
-      Email:value
+    wx.request({
+      url: app.AppWeb.url + '/ModifySetup/RevisePhone',
+      data: {
+        Phone: value
+      },
+      method: "POST",
+      header: {
+        "content-type": "application/json"
+      },
+      success: (res) => {
+        if(res.data.Code == 200){
+          this.ShowToastSuccess()
+          this.setData({
+            Phone: value,
+            PhoneChange: value
+          })
+        }else{
+          this.setData({
+            PhoneChange: this.data.Phone
+          })
+          this.ShowToastError()
+        }
+      },
+      fail: (res) => {
+        this.setData({
+          PhoneChange: this.data.Phone,
+        })
+        this.ShowToastError()
+      }
     })
   },
-  EmailInput(e){
+  EmailInput(e) {  
     let value = e.detail.value
     let reg_tel = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-    if(!reg_tel.test(value)) {
+    if (!reg_tel.test(value)) {
       wx.showModal({
         title: '邮箱格式不正确',
-        complete:()=>{
+        complete: () => {
           this.setData({
-            PhoneChange:this.data.Phone
+            PhoneChange: this.data.Phone
           })
         }
       })
       return;
     }
-    this.setData({
-      EmailChange:value, //修改后的电话
-      Email:value
+    wx.request({
+      url: app.AppWeb.url + '/ModifySetup/ReviseEmail',
+      data: {
+        Email: value
+      },
+      method: "POST",
+      header: {
+        "content-type": "application/json"
+      },
+      success: (res) => {
+        if(res.data.Code == 200){
+          this.ShowToastSuccess()
+          this.setData({
+            Email: value,
+            EmailChange: value
+          })
+        }else{
+          this.setData({
+            EmailChange: this.data.Email
+          })
+          this.ShowToastError()
+        }
+      },
+      fail: (res) => {
+        this.setData({
+          EmailChange: this.data.Email,
+        })
+        this.ShowToastError()
+      }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let JsonData = this.data.AccountInformation[0]  //存储json
-    let IFNoNull = undefined || null || ""
-    if (JsonData.DateBirth == IFNoNull) { //判断是否有日期 如果没有则获取本地日期作为数据
-      this.setData({
-        DateBirth: `${new Date().toLocaleDateString().split("/").join("-")}`
-      })
-    } 
+    this.setData({
+      "Appid": wx.getStorageSync('Appid'),
+      "Avatar": wx.getStorageSync('avatarUrl')
+    })
+    wx.request({
+      url: app.AppWeb.url + '/ModifySetup',
+      data: {
+        "Appid": this.data.Appid
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (SucRes) => {
+        let Data = SucRes.data.Data[0]
+        this.setData({
+          AccountInformation:SucRes.data.Data,
+          NickName:Data.NickName,
+          NameChange:Data.NickName,
+          Phone:Data.Phone,
+          PhoneChange:Data.Phone,
+          Sex:Data.Sex,
+          SexChange:Data.Sex,
+          DateBirth:Data.DateBirth,
+          DateBirthChange:Data.DateBirth,
+          Email:Data.Email,
+          EmailChange:Data.Email
+        })
+      },
+      fail: (FailRes) => {
+        console.log("获取AccountInformation出错啦")
+      }
+    })
 
-    if (this.data.AccountInformation[0].Avatar == IFNoNull) { //没有数据则获取本地
+    if (this.data.AccountInformation.length == 0) { //没有数据则获取本地
+      console.log("获取了本地数据")
       this.setData({
         Avatar: wx.getStorageSync('avatarUrl'),
         NickName: wx.getStorageSync('nickName'),
         NameChange: wx.getStorageSync('nickName'),
         Phone: this.data.AccountInformation[0].Phone,
-        PhoneChange: this.data.AccountInformation[0].Phone
+        PhoneChange: this.data.AccountInformation[0].Phone,
+        Appid: wx.getStorageSync('Appid'),
       })
-    } else {      //json有数据则获取json
-      for (const key in JsonData) {
-        this.setData({
-         key:JsonData[key]
-       })
     }
-    }
+
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
