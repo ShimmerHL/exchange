@@ -95,6 +95,34 @@
 
 .warn{
   margin-left: 30rpx;
+  text-align: center;
   font-size: 30rpx;
   color: red;
 }
+
+.Number{
+  margin-top: 30rpx;
+  font-size: 35rpx;
+}
+
+.Number view:nth-child(2){
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.Number image{
+  display: inline-block;
+  width: 70rpx;
+  height: 70rpx;
+  border: 1rpx solid rgba(0, 0, 0, .5);
+  border-radius: 10rpx;
+}
+
+.Number input{
+  display: inline-block;
+  width: 100rpx;
+  height: 70rpx;
+  margin: 0 30rpx;
+  border: 1rpx solid rgba(0, 0, 0, .5);
+  border-radius: 10rpx;
+} 

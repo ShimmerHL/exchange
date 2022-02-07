@@ -1,5 +1,7 @@
 // pages/CustomGifts/CustomGifts.js
 let app = getApp()
+let Utils = require("../../utils/util")
+let PastDate = Date.now()
 Page({
 
   /**
@@ -15,7 +17,8 @@ Page({
     "CommodityFunllName": "", //全名
     "BusinessName": "", //企业名
     "IntroduceImg": [], //详情图片
-    "Specification": [], //规格
+    "Specification": [], //规格,
+    "GiftNumber": 1,
     "Registration": wx.getStorageSync('Registration') //企业注册号
   },
   CarouselPicturesAdd(e) { //轮播图片选取
@@ -99,10 +102,10 @@ Page({
     }
   },
   TextIptAdd() { //规格行添加
-    if(this.data.Specification.length > 4){
+    if (this.data.Specification.length > 4) {
       wx.showToast({
         title: '规格数量上线为5行!',
-        icon:"none",
+        icon: "none",
         duration: 2000
       })
       return
@@ -169,7 +172,38 @@ Page({
       IntroduceImg: Arr
     })
   },
-  formSubmit(e) {
+  AddAndReduce(e) { //礼品数量
+    let Num = this.data.GiftNumber
+    switch (e.currentTarget.dataset.name) {
+      case "Add":
+        Num++
+        this.setData({
+          "GiftNumber": Num
+        })
+        break;
+      case "Reduce":
+        if (Num <= 1) return
+        Num--
+        this.setData({
+          "GiftNumber": Num
+        })
+        break;
+    }
+  },
+  formSubmit(e) { //提交表单
+    let NowDate = Date.now()
+    
+    if (NowDate - PastDate < 4000) {
+      wx.showToast({
+        title: '操作过于频繁',
+        icon: "none",
+        duration: 2000
+      })
+      PastDate = Date.now()
+      return
+    }
+    
+    PastDate = Date.now()
     if (this.data.CarouselPictures.length == 0) {
       wx.showToast({
         title: '轮播图片最少需要添加一张',
@@ -201,26 +235,27 @@ Page({
     //当以上有一项符合时退出
     if (NameNull == 1) return
     //默认[商家注册号,轮播图片,缩略名,全名,企业名,规格,详情图片]
-    let InsertData = ["1","1","1","1","1",null,null]
-    if(this.data.Specification.length !== 0){
+    let InsertData = ["1", "1", "1", "1", "1", null, null]
+    if (this.data.Specification.length !== 0) {
       InsertData[5] = "1"
     }
-    if(this.data.IntroduceImg.length !== 0){
+    if (this.data.IntroduceImg.length !== 0) {
       InsertData[6] = "1"
     }
-    //发送商家注册号和需要插入的数据统计 必须是最先发起的请求
+    //发送商家注册号和需要插入的数据统计与礼品数量 必须是最先发起的请求
     wx.request({
       url: app.AppWeb.url + '/CustomGifts',
       data: {
-        'FrontEnd':InsertData,
-        'Registration': this.data.Registration
+        "FrontEnd": InsertData,
+        "Registration": this.data.Registration,
+        "GiftNumber": this.data.GiftNumber
       },
-      method:"POST",
+      method: "POST",
       header: {
         'content-type': 'application/json'
       },
       success: (ReqRes) => {
-        console.log(ReqRes)
+        // console.log(ReqRes)
       }
     })
     //发送轮播图片
@@ -230,79 +265,114 @@ Page({
         name: 'img',
         filePath: this.data.CarouselPictures[i],
         success: (SucRes) => {
+          if (SucRes.statusCode !== 200) {
+            Utils.ShowToastErr()
+          }
         }
       })
     }
 
     //发送缩略名
-   wx.request({
-    url: app.AppWeb.url + '/CustomGifts/CommodityName',
-    data: {
-      'CommodityName': this.data.CommodityName
-    },
-    method:"POST",
-    header: {
-      'content-type': 'application/json'
-    },
-    success: (ReqRes) => {
-    }
-  })
-  //发送全名
-  wx.request({
-    url: app.AppWeb.url + '/CustomGifts/CommodityFunllName',
-    data: {
-      'CommodityFunllName': this.data.CommodityFunllName
-    },
-    method:"POST",
-    header: {
-      'content-type': 'application/json'
-    },
-    success: (ReqRes) => {
-    }
-  })
-  //发送企业名
-  wx.request({
-    url: app.AppWeb.url + '/CustomGifts/BusinessName',
-    data: {
-      'BusinessName': this.data.BusinessName
-    },
-    method:"POST",
-    header: {
-      'content-type': 'application/json'
-    },
-    success: (ReqRes) => {
-    }
-  })
-  //发送规格
-   if(this.data.Specification.length !== 0){
     wx.request({
-      url: app.AppWeb.url + '/CustomGifts/Specification',
+      url: app.AppWeb.url + '/CustomGifts/CommodityName',
       data: {
-        'Specification': this.data.Specification
+        'CommodityName': this.data.CommodityName
       },
-      method:"POST",
+      method: "POST",
       header: {
         'content-type': 'application/json'
       },
-      success: (ReqRes) => {
-      }
+      success: (ReqRes) => {}
     })
-   }
+    //发送全名
+    wx.request({
+      url: app.AppWeb.url + '/CustomGifts/CommodityFunllName',
+      data: {
+        'CommodityFunllName': this.data.CommodityFunllName
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (ReqRes) => {}
+    })
+
+    //发送企业名
+    wx.request({
+      url: app.AppWeb.url + '/CustomGifts/BusinessName',
+      data: {
+        'BusinessName': this.data.BusinessName
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (ReqRes) => {}
+    })
+
+    //发送规格
+    if (this.data.Specification.length !== 0) {
+      wx.request({
+        url: app.AppWeb.url + '/CustomGifts/Specification',
+        data: {
+          'Specification': this.data.Specification
+        },
+        method: "POST",
+        header: {
+          'content-type': 'application/json'
+        },
+        success: (ReqRes) => {}
+      })
+    }
 
     //发送详情图片
     if (this.data.IntroduceImg.length !== 0) {
       for (let i = 0; i < this.data.IntroduceImg.length; i++) {
-        console.log(i)
         wx.uploadFile({
           url: app.AppWeb.url + '/CustomGifts/IntroduceImg',
           name: 'img',
           filePath: this.data.IntroduceImg[i],
           success: (UploadFileRes) => {
-
+            if (UploadFileRes.statusCode !== 200) {
+              Utils.ShowToastErr()
+            }
           }
         })
       }
     }
+
+    setTimeout(() => {
+      wx.request({
+        url: app.AppWeb.url + '/CustomGifts/dbSuccess',
+        method: "Get",
+        success: (ReqRes) => {
+          console.log(ReqRes)
+          if (ReqRes.data.Code == 200) {
+            wx.showToast({
+              title: '定制完成',
+              icon: "success",
+              duration: 2000
+            })
+            wx.reLaunch({
+              url: '/pages/TotalGifts/TotalGifts',
+            })
+          } else {
+            wx.showToast({
+              title: '服务器超时',
+              icon: "error",
+              duration: 2000
+            })
+            setTimeout(()=>{
+              wx.reLaunch({
+                url: '/pages/CustomGifts/CustomGifts',
+              })
+            },2000)
+          }
+        }
+      })
+    }, 2000)
+
+
   },
   /**
    * 生命周期函数--监听页面加载

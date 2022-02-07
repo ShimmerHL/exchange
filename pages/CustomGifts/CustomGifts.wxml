@@ -51,9 +51,19 @@
         <image src="../../images/icon/tianjiatupian.png" bindtap="IntroduceImgAdd" />
       </view>
     </view>
+    <view class="Number">
+      <view>
+        礼品数量: 
+      </view>
+      <view>
+        <image src="../../images/icon/jiahao.png" data-name="Add" bindtap="AddAndReduce" />
+        <input type="text" value="{{GiftNumber}}" />
+        <image src="../../images/icon/jianhao.png" data-name="Reduce" bindtap="AddAndReduce" />
+      </view>
+    </view>
     <view class="CarouselBtn">
-    <button class="btn" form-type="reset">重置</button> 
-    <button class="btn" from-type="submit" bindtap="formSubmit">提交</button>
+      <button class="btn" form-type="reset">重置</button> 
+      <button class="btn" from-type="submit" bindtap="formSubmit">提交</button>
     </view>
   </form>
 </view>

@@ -16,7 +16,7 @@ let JsonObj = (json)=>{
 
 let ShowToastErr = ()=>{
   wx.showToast({
-    title: '服务器错误',
+    title: '服务器错误请重试',
     icon:"none",
     duration:2000
   })
