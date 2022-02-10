@@ -10,12 +10,14 @@
     "pages/TotalGifts/TotalGifts",
     "pages/RedemptionCode/RedemptionCode"
   ],
-  "entryPagePath":  "pages/CustomGifts/CustomGifts",
+  "entryPagePath":  "pages/Index/Index",
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "兑换商城",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark"
   },
   "tabBar":{
     "list": [{

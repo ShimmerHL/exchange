@@ -10,7 +10,7 @@ Page({
    * onShareAppMessage 分享
    */
   data: {
-    onShareAppMessage(res){
+    onShareAppMessage(res) {
       const promise = new Promise(resolve => {
         setTimeout(() => {
           resolve({
@@ -21,13 +21,13 @@ Page({
       return {
         title: this.data.Commodity.CommodityFunllName,
         path: '/page/Details/Details.wxml',
-        promise 
+        promise
       }
     },
-    "IntroduceImgOne":"",
-    "InputPageBoxDisplay":"none",
-    "InputPageCOlor":"",
-    "Commodity":[],
+    "IntroduceImgOne": "",
+    "InputPageBoxDisplay": "none",
+    "InputPageCOlor": "",
+    "Commodity": [],
     // "Commodity":[{
     //   "GiftUnique":"",
     //   "CommodityName":"蛇圣（Holy serpent）",
@@ -50,90 +50,98 @@ Page({
     //   "Frequency":"11" ,
     //   "Remaining":"233",
     // }],
-    "RedemptionCode":"",
-      "Receiver":"",
-      "Phone":"",
-      "Region": ['广东省', '广州市', '海珠区'],
-      "Address":"",
-      "OrderTime":""
+    "RedemptionCode": "",
+    "Receiver": "",
+    "Phone": "",
+    "Region": ['广东省', '广州市', '海珠区'],
+    "Address": "",
+    "OrderTime": ""
   },
-  Exchange(){
+  Exchange() {
     //点击兑换button显示填写信息界面
     this.animate("#InputPage",
-    [{bottom:"-100%"},
-    {bottom:"0%"}],
-    300,()=>{
-      this.setData({
-        InputPageCOlor:"rgba(000,000,000,.7)"
+      [{
+          bottom: "-100%"
+        },
+        {
+          bottom: "0%"
+        }
+      ],
+      300, () => {
+        this.setData({
+          InputPageCOlor: "rgba(000,000,000,.7)"
+        })
       })
-    })
 
     this.setData({
-      IntroduceImgOne :  this.data.Commodity[0].IntroduceImg[0],
-      "InputPageBoxDisplay":"block",
+      IntroduceImgOne: this.data.Commodity[0].IntroduceImg[0],
+      "InputPageBoxDisplay": "block",
     })
   },
-  HowHide(){
+  HowHide() {
     //点击黑色区域或者叉号影藏填写信息界面
     this.setData({
-      InputPageCOlor:"",
+      InputPageCOlor: "",
       IntroduceImgOne: "",
-      InputPageBoxPostion : "-100%",
-      "InputPageBoxDisplay":"none"
+      InputPageBoxPostion: "-100%",
+      "InputPageBoxDisplay": "none"
     })
   },
-  InputModule(e){
-      //三级联动
-      this.setData({
-        Region: e.detail.value
-      })
+  InputModule(e) {
+    //三级联动
+    this.setData({
+      Region: e.detail.value
+    })
   },
-  FormInformation(e){
-      //获取表单信息
-      // console.log(e)
-      let Time = new Date().toLocaleDateString().split("/").join("-")+" " + new Date().toTimeString().slice(0,8)
-      switch(e.target.dataset.name){
-        case "duihuanma":
-          this.setData({
-            RedemptionCode:e.detail.value,
-            OrderTime:Time
-          })
-          break;
-        case "shouhuoren":
-          this.setData({
-            Receiver:e.detail.value,
-            OrderTime:Time
-          })
-          break;
-        case "shoujihaoma":
-          this.setData({
-            Phone:e.detail.value,
-            OrderTime:Time
-          })
-          break;
-        case "xinagxidizhi":
-          this.setData({
-            Address:e.detail.value,
-            OrderTime:Time
-          })
-          break;
-        
-      }
+  FormInformation(e) {
+    //获取表单信息
+    // console.log(e)
+    let Time = new Date().toLocaleDateString().split("/").join("-") + " " + new Date().toTimeString().slice(0, 8)
+    switch (e.target.dataset.name) {
+      case "duihuanma":
+        this.setData({
+          RedemptionCode: e.detail.value,
+          OrderTime: Time
+        })
+        break;
+      case "shouhuoren":
+        this.setData({
+          Receiver: e.detail.value,
+          OrderTime: Time
+        })
+        break;
+      case "shoujihaoma":
+        this.setData({
+          Phone: e.detail.value,
+          OrderTime: Time
+        })
+        break;
+      case "xinagxidizhi":
+        this.setData({
+          Address: e.detail.value,
+          OrderTime: Time
+        })
+        break;
+
+    }
   },
-  SubmitBtn(){
-      wx.navigateTo({
-        url: '/pages/CheckDetails/CheckDetails'
-      })
+  SubmitBtn() {
+    wx.navigateTo({
+      url: '/pages/CheckDetails/CheckDetails'
+    })
   },
-  formSubmit(e){
+  formSubmit(e) {
     console.log(e)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.request({
-      url: app.AppWeb.url +  '/Details',
+      url: app.AppWeb.url + '/Details',
       data: {
         GiftUnique: options.GiftUnique
       },
@@ -141,18 +149,30 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success:(res)=>{
+      success: (res) => {
         //console.log(res.data)
         let json = Util.JsonObj(res.data)
-        for (let index = 0; index < json.CarouselPictures.length; index++) {
-          json.CarouselPictures[index] = app.AppWeb.url + json.CarouselPictures[index] 
+        //去除空值
+        for (let i = 0; i < json.CarouselPictures.length; i++) {
+          if (json.CarouselPictures[i] == " ") {
+            json.CarouselPictures.splice(i)
+          } else {
+            json.CarouselPictures[i] = app.AppWeb.url + json.CarouselPictures[i]
+          }
+
         }
-        for (let index = 0; index < json.CarouselPictures.length; index++) {
-          json.IntroduceImg[index] = app.AppWeb.url + json.IntroduceImg[index] 
+        for (let i = 0; i < json.IntroduceImg.length; i++) {
+          if (json.IntroduceImg[i] == " ") {
+            json.IntroduceImg.splice(i)
+          } else {
+            json.IntroduceImg[i] = app.AppWeb.url + json.IntroduceImg[i]
+          }
+
         }
         this.setData({
-          "Commodity" : [json]
-         })
+          "Commodity": [json]
+        })
+        wx.hideLoading()
       }
     })
   },
@@ -161,7 +181,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-     
+
   },
 
   /**

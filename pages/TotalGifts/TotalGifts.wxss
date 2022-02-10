@@ -33,6 +33,13 @@
   padding: 10rpx 0;
 }
 
+#TotalGiftsHome .TotalGiftsInformation .ModuleBottom text{
+  float: right;
+  margin: 12rpx 40rpx 0 0;
+  font-size: 27rpx;
+  color: red;
+}
+
 #TotalGiftsHome .TotalGiftsInformation .ModuleBottom button{
   box-sizing: border-box;
   float: right;

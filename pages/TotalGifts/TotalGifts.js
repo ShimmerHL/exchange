@@ -1,26 +1,80 @@
 // pages/TotalGifts/TotalGifts.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    "AllOrders": [{
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 0,
-      "ImgsUrl": "../../images/commodity/images1/1.jpg",
-    },{
-      "OrderUnique":"3332",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 0,
-      "ImgsUrl": "../../images/commodity/images1/1.jpg",
-    }]
+    "AllOrders": [],
+    "Registration": wx.getStorageSync('Registration'), //企业注册号
+    // [{
+    //   "GiftUnique": "2333",
+    //   "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
+    //   "Exist": 0,
+    //   "Thumbnail": "../../images/commodity/images1/1.jpg",
+    // }, {
+    //   "GiftUnique": "3332",
+    //   "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
+    //   "Exist": 0,
+    //   "Thumbnail": "../../images/commodity/images1/1.jpg",
+    // }]
+  },
+  RemoveGift(e) {
+    wx.request({
+      url: app.AppWeb.url + '/RedemptionCode/RemoveGift',
+      data: {
+        'GiftUnique': e.currentTarget.dataset.giftunique.GiftUnique
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (ReqRes) => {
+        //console.log(ReqRes)
+      }
+    })
+    wx.reLaunch({
+      url: '/pages/TotalGifts/TotalGifts',
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //显示加载动画
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url: app.AppWeb.url + '/TotalGifts',
+      data: {
+        'Registration': this.data.Registration
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (ReqRes) => {
+        let JsonArr = ReqRes.data.Data
+        let Exist0 = []
+        let Exist1 = []
+        for (const key in JsonArr) { //在图片路径加上服务器地址 和删除与未删除分类
+          JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
+          if (JsonArr[key].Exist == 0) {
+            Exist0.push(JsonArr[key])
+          } else {
+            Exist1.push(JsonArr[key])
+          }
+        }
+        JsonArr = [...Exist0, ...Exist1]
+        this.setData({
+          "AllOrders": JsonArr
+        })
+        //关闭加载动画
+        wx.hideLoading()
+      }
+    })
   },
 
   /**

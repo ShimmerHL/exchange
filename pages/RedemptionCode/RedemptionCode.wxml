@@ -1,11 +1,12 @@
 <!-- 兑换码 -->
 <!--pages/RedemptionCode/RedemptionCode.wxml-->
 <view id="RedemptionCodeHome">
-  <block  wx:for="{{Redemption_Url}}" wx:key="index">
-   <view>
-      <text>{{item}}</text>
-      <button size="mini" open-type="launchApp" plain="true" data-key="{{index}}" bindtap="CopyQRCode">复制</button>
-   </view>
+  <block  wx:for="{{RedemptionCode}}" wx:key="index">
+    <view>
+        <text>{{item.Code}}</text>
+        <button size="mini" open-type="launchApp" plain="true" data-key="{{index}}" bindtap="CopyQRCode">复制</button>
+        <text wx:if="{{item.Used}}">(已使用)</text>
+    </view>
   </block>
   
     

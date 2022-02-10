@@ -7,11 +7,12 @@
 }
 
 #RedemptionCodeHome view {
+  position: relative;
   padding: 20rpx 0;
   border-bottom: 1px solid rgb(235, 228, 228);
 }
 
-#RedemptionCodeHome view text {
+#RedemptionCodeHome view text:nth-child(1) {
   display: inline-block;
   width: 570rpx;
   vertical-align: middle;
@@ -29,4 +30,10 @@
   border: 1px solid red;
 }
 
-
+#RedemptionCodeHome view text:nth-child(3) {
+  position: absolute;
+  right: 200rpx;
+  top: 30rpx;
+  font-size: 25rpx;
+  color: red;
+}

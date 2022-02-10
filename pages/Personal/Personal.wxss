@@ -1,9 +1,8 @@
 /* pages/personal/personal.wxss */
 #PersonalBox .UserBox {
-  position: relative;
   box-sizing: border-box;
   width: 100%;
-  height: 400rpx;
+  height: 435rpx;
   padding-top: 70rpx;
   background-color: #1b90da;
 }
@@ -25,12 +24,9 @@
 
 #PersonalBox .ActionBar {
   box-sizing: border-box;
-  position: absolute;
-  top: 295rpx;
-  left: 50%;
   width: 90%;
   height: 280rpx;
-  margin-left: -45%;
+  margin: 100rpx auto 0;
   background-color: #fff;
   border: 1px solid rgb(235, 228, 228);
   box-shadow: 0 5rpx 5rpx rgb(235, 228, 228);
@@ -83,11 +79,10 @@
 
 #PersonalBox .BusinessUsers {
   box-sizing: border-box;
-  padding: 30rpx 0 0 42rpx;
-  margin-top: 220rpx;
+  padding: 200rpx 0 440rpx 42rpx;
   font-size: 33rpx;
   border-top: 1px solid rgb(235, 228, 228);
-  box-shadow: 0 5rpx 8rpx rgb(235, 228, 228) inset;
+  box-shadow: 0 0rpx 23rpx rgb(235, 228, 228) inset;
 }
 
 #PersonalBox .BusinessUsers view {

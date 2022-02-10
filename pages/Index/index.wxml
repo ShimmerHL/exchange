@@ -2,16 +2,17 @@
 
 <view id="SearchQuery"> 
   <view class="FormSearch">
-    <input style="width:{{InputW}}rpx;text-align:{{SearchTitleAlignCenter}}" type="text" placeholder="{{SearchTitlePlaceholder}}" bindtap="InputWFn"/>
-    <button style="opacity: {{BtnOpacity}}" bindtap="BtnNone">取消</button>
+    <image src="../../images/icon/zuojiantou.png" style="display: {{BtnDisplay}}" bindtap="BtnNone" />
+    <input style="width:{{InputW}}rpx;text-align:{{SearchTitleAlignCenter}}" type="text" value="{{SearchValue}}" placeholder="{{SearchTitlePlaceholder}}" bindtap="InputWFn" bindinput="Enter"/>
+    <button bindtap="Search">搜索</button>
   </view>
   <view class="SearchTitle" style="display:{{SearchTitleDisplay}}">
       <block wx:for="{{SearchText}}" wx:key="index" >
-        <view>{{item}}</view>
+        <view data-GiftUnique="{{item.GiftUnique}}" bindtap="SearchTitleFun">{{item.CommodityName}}</view>
       </block>
   </view>
 </view>
-<view id="Home" wx:for="{{CommodityAll}}" wx:key="*this">
+<view id="Home" wx:for="{{CommodityAll}}" wx:key="index">
     <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
       <view class="Home_Box">
         <image mode="scaleToFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>

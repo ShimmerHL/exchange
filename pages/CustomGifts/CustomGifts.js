@@ -111,7 +111,7 @@ Page({
       return
     }
     let SpecificationArr = [...this.data.Specification]
-    SpecificationArr.length = SpecificationArr.length + 1
+    SpecificationArr = SpecificationArr.concat("")
     this.setData({
       Specification: SpecificationArr
     })
@@ -122,6 +122,13 @@ Page({
     SpecificationArr.splice(index, 1)
     this.setData({
       Specification: SpecificationArr
+    })
+  },
+  TextIptEnter(e) { //规格输入
+    let Arr = [...this.data.Specification]
+    Arr[e.currentTarget.dataset.index] = e.detail.value
+    this.setData({
+      Specification: Arr
     })
   },
   IntroduceImgAdd(e) { //详细图添加
@@ -190,9 +197,14 @@ Page({
         break;
     }
   },
+  InputGiftNumber(e){ //输入的礼品数量
+    this.setData({
+      "GiftNumber":  e.detail.value
+    })
+  },
   formSubmit(e) { //提交表单
     let NowDate = Date.now()
-    
+
     if (NowDate - PastDate < 4000) {
       wx.showToast({
         title: '操作过于频繁',
@@ -202,7 +214,7 @@ Page({
       PastDate = Date.now()
       return
     }
-    
+
     PastDate = Date.now()
     if (this.data.CarouselPictures.length == 0) {
       wx.showToast({
@@ -234,6 +246,12 @@ Page({
     }
     //当以上有一项符合时退出
     if (NameNull == 1) return
+
+    //显示加载动画
+    wx.showLoading({
+      title: '处理中',
+    })
+
     //默认[商家注册号,轮播图片,缩略名,全名,企业名,规格,详情图片]
     let InsertData = ["1", "1", "1", "1", "1", null, null]
     if (this.data.Specification.length !== 0) {
@@ -346,27 +364,30 @@ Page({
         url: app.AppWeb.url + '/CustomGifts/dbSuccess',
         method: "Get",
         success: (ReqRes) => {
-          console.log(ReqRes)
+          //关闭加载动画
+          wx.hideLoading()
           if (ReqRes.data.Code == 200) {
             wx.showToast({
-              title: '定制完成',
-              icon: "success",
+              title: '定制完成!正在跳转中~',
+              icon: "none",
               duration: 2000
             })
-            wx.reLaunch({
-              url: '/pages/TotalGifts/TotalGifts',
-            })
+            setTimeout(()=>{
+              wx.reLaunch({
+                url: '/pages/TotalGifts/TotalGifts',
+              })
+            },2000)
           } else {
             wx.showToast({
               title: '服务器超时',
               icon: "error",
               duration: 2000
             })
-            setTimeout(()=>{
+            setTimeout(() => {
               wx.reLaunch({
                 url: '/pages/CustomGifts/CustomGifts',
               })
-            },2000)
+            }, 2000)
           }
         }
       })

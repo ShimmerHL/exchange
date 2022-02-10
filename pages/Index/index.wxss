@@ -4,7 +4,7 @@
   position: relative;
 }
 #SearchQuery .FormSearch{
-  width: 120%;
+  width: 140%;
 }
 
 #SearchQuery .FormSearch input{
@@ -16,17 +16,25 @@
   vertical-align: middle;
   border: 1px solid rgba(000, 000, 000, .5);
   border-radius: 30rpx;
-  transition: 1s;
+  /* transition: 1s; */
+}
+
+#SearchQuery .FormSearch image{
+  display: inline-block;
+  margin-left: 15rpx;
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
 }
 
 #SearchQuery .FormSearch button{
   display: inline-block;
-  width: 180rpx;
-  font-size: 30rpx;
+  width: 150rpx;
+  height: 70rpx;
+  font-size: 27rpx;
   vertical-align: middle;
   background-color: #fff;
   color: red;
-  transition: 1s;
 }
 
 #SearchQuery .SearchTitle{

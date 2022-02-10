@@ -2,18 +2,20 @@
 <!--pages/TotalGifts/TotalGifts.wxml-->
 <view id="TotalGiftsHome">
   <view class="TotalGiftsInformation">
-    <block wx:for="{{AllOrders}}" wx:key="this">
+    <block wx:for="{{AllOrders}}" wx:key="key">
        <view class="Module" style="display:{{StateFour}};">
         <view class="ModuleContent">
-          <image src="{{item.ImgsUrl}}" />
+          <image src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
           </view>
         </view>
-        <view class="ModuleBottom">
-         <navigator open-type="navigate" url="/pages/RedemptionCode/RedemptionCode?unique={{item.unique}}" >
+        <view class="ModuleBottom" >
+          <text  wx:if="{{item.Exist}}">已删除</text>
+         <navigator wx:if="{{!item.Exist}}" open-type="navigate" url="/pages/RedemptionCode/RedemptionCode?GiftUnique={{item.GiftUnique}}" >
           <button size="mini" open-type="launchApp" plain="true">查看兑换码</button>
          </navigator>
+          <button  wx:if="{{!item.Exist}}" size="mini" open-type="launchApp" plain="true" data-GiftUnique="{{item}}"  bindtap="RemoveGift">删除</button>
         </view>
       </view>
     </block>

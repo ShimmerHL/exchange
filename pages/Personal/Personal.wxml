@@ -15,8 +15,6 @@
             </view>
         </block>
         
-    </view>
-
     <view class="ActionBar">
         <view class="ActionBarTop" data-sequence="All" bindtap="ActionBar">
             <text>我的订单</text>
@@ -44,6 +42,8 @@
             </view>
         </view>
     </view>
+    </view>
+
     <view class="BusinessUsers" wx:if="{{!Merchant}}">
         <view bindtap="Controls" data-btn="woshiqiyezhanghu">
             <image src="../../images/icon/qiye.png"></image>

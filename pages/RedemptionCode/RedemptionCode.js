@@ -1,20 +1,21 @@
 // pages/RedemptionCode/RedemptionCode.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    "OrderUnique":"",
-    "Redemption_Url":["2333","23333","233333"]
+    "OrderUnique": "",
+    "RedemptionCode": []
   },
-  CopyQRCode(e){
+  CopyQRCode(e) {
     wx.setClipboardData({
       data: this.data.Redemption_Url[e.currentTarget.dataset.key],
-      fail (res) {
-       wx.showToast({
-         title: '复制失败',
-       })
+      fail(res) {
+        wx.showToast({
+          title: '复制失败',
+        })
       }
     })
   },
@@ -22,9 +23,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      this.setData({
-        "unique": options.name
-      })
+    //显示加载动画
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url: app.AppWeb.url + '/RedemptionCode',
+      data: {
+        'GiftUnique': options.GiftUnique
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (ReqRes) => {
+        this.setData({
+          "RedemptionCode": ReqRes.data.Data
+        })
+        //关闭加载动画
+        wx.hideLoading()
+      }
+    })
   },
 
   /**
