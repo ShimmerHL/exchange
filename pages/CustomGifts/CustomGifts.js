@@ -19,6 +19,9 @@ Page({
     "IntroduceImg": [], //详情图片
     "Specification": [], //规格,
     "GiftNumber": 1,
+    "LabelArr":["家电","家具","生活用品","护肤产品","其他"],
+    "Label":"5",
+    "ChosenLabel":"其他",
     "Registration": wx.getStorageSync('Registration') //企业注册号
   },
   CarouselPicturesAdd(e) { //轮播图片选取
@@ -202,6 +205,13 @@ Page({
       "GiftNumber":  e.detail.value
     })
   },
+  Label(e){
+    this.setData({
+      "Label": e.detail.value,
+      "ChosenLabel": this.data.LabelArr[e.detail.value] 
+    })
+    console.log(e)
+  },
   formSubmit(e) { //提交表单
     let NowDate = Date.now()
 
@@ -253,19 +263,20 @@ Page({
     })
 
     //默认[商家注册号,轮播图片,缩略名,全名,企业名,规格,详情图片]
-    let InsertData = ["1", "1", "1", "1", "1", null, null]
+    let InsertData = ["1", "1", "1", "1", "1", null]
     if (this.data.Specification.length !== 0) {
       InsertData[5] = "1"
     }
     if (this.data.IntroduceImg.length !== 0) {
       InsertData[6] = "1"
     }
-    //发送商家注册号和需要插入的数据统计与礼品数量 必须是最先发起的请求
+    //发送商家注册号和需要插入的数据统计与礼品标签与礼品数量 必须是最先发起的请求
     wx.request({
       url: app.AppWeb.url + '/CustomGifts',
       data: {
         "FrontEnd": InsertData,
         "Registration": this.data.Registration,
+        "Label": this.data.Label,
         "GiftNumber": this.data.GiftNumber
       },
       method: "POST",

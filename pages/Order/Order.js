@@ -16,7 +16,6 @@ Page({
     "StateTwo": "block",
     "StateThree": "block",
     "StateFour": "block",
-    "PreviousClick": "All",
     "Appid": wx.getStorageSync('Appid'),
     "AllOrders": [],
     // [{
@@ -28,18 +27,7 @@ Page({
     // }]
   },
   OrderClick(e) {
-    // let PName = this.data.PreviousClick
-    // let state = 0
-    // // console.log(PName)
-
     this.StateFn(e.target.dataset.state)
-
-    // this.setData({
-    //   [PName]:"",
-    //   PreviousClick: e.target.dataset.name,
-    //   [e.target.dataset.name]:"Clicked"
-    // })
-
   },
   OrderDetails(e){ //详情
     wx.navigateTo({

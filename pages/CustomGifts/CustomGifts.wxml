@@ -51,6 +51,14 @@
         <image src="../../images/icon/tianjiatupian.png" bindtap="IntroduceImgAdd" />
       </view>
     </view>
+    <view class="Label">
+      <view class="CarouselText">商品标签: </view>
+      <picker bindchange="Label" value="{{index}}" range="{{LabelArr}}">
+        <view class="picker">
+          当前选择：<text>{{LabelArr[index]}}{{ChosenLabel}}</text>
+        </view>
+      </picker>
+    </view>
     <view class="Number">
       <view>
         礼品数量: 
