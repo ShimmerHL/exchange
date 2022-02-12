@@ -9,7 +9,7 @@
   </view>
   <view class="OrderInformation">
     <block wx:for="{{AllOrders}}" wx:key="this">
-      <view class="Module" style="display:{{StateOne}};" wx:if="{{item.State == 0}}">
+      <view class="Module" style="display:{{StateOne}};" wx:if="{{item.LogisticsStatus == 0}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
           <image src="../../images/icon/youjiantou.png" />
@@ -22,10 +22,10 @@
           </view>
         </view>
         <view class="ModuleBottom">
-          <button size="mini" open-type="launchApp" plain="true">查看详情</button>
+          <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails">查看详情</button>
         </view>
       </view>
-       <view class="Module" style="display:{{StateTwo}};" wx:elif="{{item.State == 1}}">
+       <view class="Module" style="display:{{StateTwo}};" wx:elif="{{item.LogisticsStatus == 1}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
           <image src="../../images/icon/youjiantou.png" />
@@ -38,14 +38,15 @@
           </view>
         </view>
         <view class="ModuleBottom">
-          <button size="mini" open-type="launchApp" plain="true">再次兑换</button>
+          <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="ToBeDelivered">确认已发货</button>
+          <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails" >查看详情</button>
         </view>
       </view>
-       <view class="Module" style="display:{{StateThree}};" wx:elif="{{item.State == 2}}">
+       <view class="Module" style="display:{{StateThree}};" wx:elif="{{item.LogisticsStatus == 2}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
           <image src="../../images/icon/youjiantou.png" />
-          <text>待发货</text>
+          <text>待收货</text>
         </view>
         <view class="ModuleContent">
           <image src="{{item.Thumbnail}}" />
@@ -54,10 +55,11 @@
           </view>
         </view>
         <view class="ModuleBottom">
-          <button size="mini" open-type="launchApp" plain="true">查看详情</button>
+          <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="PendingReceipt">确认收货</button>
+          <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails" >查看详情</button>
         </view>
       </view>
-       <view class="Module" style="display:{{StateFour}};" wx:if="{{item.State == 3}}">
+       <view class="Module" style="display:{{StateFour}};" wx:if="{{item.LogisticsStatus == 3}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
           <image src="../../images/icon/youjiantou.png" />
@@ -70,7 +72,8 @@
           </view>
         </view>
         <view class="ModuleBottom">
-          <button size="mini" open-type="launchApp" plain="true" >查看详情</button>
+          <button size="mini" open-type="launchApp" plain="true"  data-OrderUnique="{{item.OrderUnique}}" bindtap="PendingReceipt">售后已完成</button>
+          <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails" >查看详情</button>
         </view>
       </view>
     </block>

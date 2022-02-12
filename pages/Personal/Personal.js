@@ -12,9 +12,10 @@ Page({
     "Registration": "",
     "Password": "",
     "TwoPassword": "",
-    "UserOpenid": ""
+    "UserOpenid": "",
+    "Appid":""
   },
-  information() {
+  information() { //获取登录状态
     wx.getUserProfile({
       desc: '让我们知道你是谁',
       success: async (callback) => {
@@ -82,28 +83,36 @@ Page({
       }
     })
   },
-  ActionBar(e) {
+  ActionBar(e) { //跳转订单页面并显示全部
     wx.reLaunch({
       "url": '/pages/Order/Order?name=' + e.currentTarget.dataset.sequence
     })
   },
-  JumpEdit() {
+  JumpEdit() { //跳转用户信息页面
     wx.navigateTo({
       url: '/pages/ModifySetup/ModifySetup',
     })
   },
-  Customize() {
+  Customize() { //定制礼品
     wx.navigateTo({
       url: '/pages/CustomGifts/CustomGifts',
     })
   },
-  AllRedemptionCodes() {
+  AllRedemptionCodes() { //跳转所有礼品页面
     wx.navigateTo({
       url: '/pages/TotalGifts/TotalGifts'
     })
   },
-  //处理企业登录与窗口显示隐藏函数
-  Controls(e) {
+
+  Controls(e) { //处理企业登录与窗口显示隐藏函数
+    if(this.data.Appid == ""){
+      wx.showToast({
+        title: '请先登录',
+        icon:"error",
+        duration: 2000
+      })
+      return
+    }
     switch (e.currentTarget.dataset.btn) {
       case "quxiao":
         this.setData({
@@ -147,7 +156,6 @@ Page({
             if (res.data.Code == 406 && res.data.mgs == "Error") {
               Utils.ShowToastErr()
             }
-
           }
         })
 
@@ -156,9 +164,48 @@ Page({
         })
         break;
       case "zhuce":
-        this.setData({
-          "EnterpriseLoginAndAdd": "none"
-        })
+        if (this.data.Password == this.data.TwoPassword) {
+          wx.request({
+            url: app.AppWeb.url + '/EnterpriseUserAdd',
+            data: {
+              "Appid": this.data.Appid,
+              "Registration": this.data.Registration,
+              "Password": this.data.Password
+            },
+            method: "POST",
+            header: {
+              'content-type': 'application/json'
+            },
+            success: (res) => {
+              console.log(res)
+              if (res.data.Code !== 200) {
+                wx.showToast({
+                  title: '该用户已存在',
+                  icon: "error",
+                  duration: 2000
+                })
+                this.setData({
+                  "Registration": "",
+                  "Password": "",
+                  "PasswordTow": ""
+                })
+              } else {
+                wx.setStorageSync("Registration", this.data.Registration)
+                wx.setStorageSync("Merchant", res.data.Merchant)
+                this.setData({
+                  "Merchant": res.data.Merchant,
+                  "EnterpriseLoginAndAdd": "none"
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '输入的俩次密码不相同',
+            icon: "none",
+            duration: 2000
+          })
+        }
         break;
       case "zhucejiemian":
         this.setData({
@@ -179,7 +226,7 @@ Page({
         break;
     }
   },
-  EnterpriseUserLogin(e) {
+  EnterpriseUserLogin(e) { //获取填写的注册表单内容
     switch (e.currentTarget.dataset.name) {
       case "Registration":
         this.setData({
@@ -194,7 +241,7 @@ Page({
     }
 
   },
-  AddEnterpriseUser(e) {
+  AddEnterpriseUser(e) { //注册表单
     switch (e.currentTarget.dataset.name) {
       case "Registration":
         this.setData({
@@ -208,7 +255,7 @@ Page({
         break;
       case "TwoPassword":
         this.setData({
-          "Password": e.detail.value
+          "TwoPassword": e.detail.value
         })
         break;
     }
@@ -216,7 +263,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) { //获取所需的初始信息
     wx.setNavigationBarColor({
       frontColor: '#000000',
       backgroundColor: '#1b90da'
@@ -229,8 +276,7 @@ Page({
           "LoginStatus": res.data
         })
       },
-      fail: () => {
-      }
+      fail: () => {}
     })
     wx.getStorage({
       key: "avatarUrl",

@@ -1,6 +1,6 @@
 // pages/Details/Details.js
 let app = getApp()
-let Util = require("../../utils/util")
+let Utils = require("../../utils/util")
 Page({
 
   /**
@@ -24,7 +24,10 @@ Page({
         promise
       }
     },
+    "Appid": wx.getStorageSync('Appid'),
+    "GiftUnique":"",
     "IntroduceImgOne": "",
+    "CommodityFunllName": "",
     "InputPageBoxDisplay": "none",
     "InputPageCOlor": "",
     "Commodity": [],
@@ -50,14 +53,19 @@ Page({
     //   "Frequency":"11" ,
     //   "Remaining":"233",
     // }],
-    "RedemptionCode": "",
-    "Receiver": "",
-    "Phone": "",
+    "RedemptionCode": "", //兑换码
+    "Receiver": "", //收货人
+    "Phone": "", //手机号
     "Region": ['广东省', '广州市', '海珠区'],
-    "Address": "",
-    "OrderTime": ""
+    "Address": "", //详细地址
+    "OrderTime": "", //下单时间
   },
-  Exchange() {
+  Exchange() { //点击兑换按钮
+    //获取封面第一张图片和礼品全名
+    this.setData({
+      "IntroduceImgOne": this.data.Commodity[0].CarouselPictures[0],
+      "CommodityFunllName": this.data.Commodity[0].CommodityFunllName
+    })
     //点击兑换button显示填写信息界面
     this.animate("#InputPage",
       [{
@@ -78,24 +86,20 @@ Page({
       "InputPageBoxDisplay": "block",
     })
   },
-  HowHide() {
-    //点击黑色区域或者叉号影藏填写信息界面
+  HowHide() {//点击黑色区域或者叉号影藏填写信息界面
     this.setData({
-      InputPageCOlor: "",
-      IntroduceImgOne: "",
-      InputPageBoxPostion: "-100%",
+      "InputPageCOlor": "",
+      "IntroduceImgOne": "",
+      "InputPageBoxPostion": "-100%",
       "InputPageBoxDisplay": "none"
     })
   },
-  InputModule(e) {
-    //三级联动
+  InputModule(e) {//三级联动
     this.setData({
-      Region: e.detail.value
+      "Region": e.detail.value
     })
   },
-  FormInformation(e) {
-    //获取表单信息
-    // console.log(e)
+  FormInformation(e) {//获取表单信息
     let Time = new Date().toLocaleDateString().split("/").join("-") + " " + new Date().toTimeString().slice(0, 8)
     switch (e.target.dataset.name) {
       case "duihuanma":
@@ -125,13 +129,57 @@ Page({
 
     }
   },
-  SubmitBtn() {
-    wx.navigateTo({
-      url: '/pages/CheckDetails/CheckDetails'
+  SubmitBtn() {  //提交表单
+    if(this.data.RedemptionCode == "" || this.data.Receiver == ""|| this.data.Phone == ""|| this.data.Region == ""){
+      wx.showToast({
+        title: '请填写完对应的信息',
+        icon: "none",
+        duration: 2000
+      })
+      return
+    }if(this.data.Receiver.length >= 26){
+      wx.showToast({
+        title: '接收者姓名过长',
+        icon: "error",
+        duration: 2000
+      })
+      return
+    }
+    if(!Utils.Reg_Phone(this.data.Phone)){
+      wx.showToast({
+        title: '手机格式不正确',
+        icon: "error",
+        duration: 2000
+      })
+      return
+    }
+    wx.request({
+      url: app.AppWeb.url + '/Details/Submit',
+      data: {
+        Appid: this.data.Appid,
+        GiftUnique: this.data.GiftUnique,
+        RedemptionCode: this.data.RedemptionCode, 
+        Receiver: this.data.Receiver, 
+        Phone: this.data.Phone, 
+        Region: this.data.Region.join(" "),
+        Address: this.data.Address, 
+        OrderTime: this.data.OrderTime, 
+      },
+      method: "POST",
+      success: (res) => {
+        if(res.data.Code !== 200){
+          wx.showToast({
+            title: '兑换码不正确或已使用或企业不对',
+            icon:"none",
+            duration: 3000
+          })
+          return
+        }
+      wx.navigateTo({
+        url: `/pages/CheckDetails/CheckDetails?OrderUnique=${res.data.Data[0].OrderUnique}`
+      })
+      }
     })
-  },
-  formSubmit(e) {
-    console.log(e)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -151,7 +199,7 @@ Page({
       },
       success: (res) => {
         //console.log(res.data)
-        let json = Util.JsonObj(res.data)
+        let json = Utils.JsonObj(res.data)
         //去除空值
         for (let i = 0; i < json.CarouselPictures.length; i++) {
           if (json.CarouselPictures[i] == " ") {
@@ -170,7 +218,8 @@ Page({
 
         }
         this.setData({
-          "Commodity": [json]
+          "Commodity": [json],
+          "GiftUnique": options.GiftUnique
         })
         wx.hideLoading()
       }

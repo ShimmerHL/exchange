@@ -23,6 +23,9 @@
 .CurrentState .StateOrAddress view{
   display: inline-block;
   margin-left: 30rpx;
+  width: 80%;
+  vertical-align: middle;
+  word-wrap:break-word; 
 }
 
 .CurrentState .StateOrAddress view text:nth-child(1){
@@ -31,8 +34,9 @@
 
 .CurrentState .StateOrAddress image:nth-child(1){
   display: inline-block;
-  width: 60rpx;
+  width: 8%;
   height: 60rpx;
+  vertical-align: middle;
 }
 
 .CurrentState .StateOrAddress image:nth-child(3){

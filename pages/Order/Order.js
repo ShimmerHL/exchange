@@ -1,4 +1,6 @@
 // pages/Order/Order.js
+let app = getApp()
+let Utils = require("../../utils/util")
 Page({
 
   /**
@@ -15,43 +17,15 @@ Page({
     "StateThree": "block",
     "StateFour": "block",
     "PreviousClick": "All",
-    "AllOrders": [{
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 0,
-      "Thumbnail": "../../images/commodity/images1/1.jpg",
-      "BusinessName": "某某某"
-    }, {
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 1,
-      "Thumbnail": "../../images/commodity/images1/1.jpg",
-      "BusinessName": "某某某"
-    }, {
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 0,
-      "Thumbnail": "../../images/commodity/images1/1.jpg",
-      "BusinessName": "某某某"
-    }, {
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 2,
-      "Thumbnail": "../../images/commodity/images1/1.jpg",
-      "BusinessName": "某某某"
-    }, {
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 1,
-      "Thumbnail": "../../images/commodity/images1/1.jpg",
-      "BusinessName": "某某某"
-    }, {
-      "OrderUnique":"2333",
-      "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-      "State": 3,
-      "Thumbnail": "../../images/commodity/images1/1.jpg",
-      "BusinessName": "某某某"
-    }]
+    "Appid": wx.getStorageSync('Appid'),
+    "AllOrders": [],
+    // [{
+    //   "OrderUnique": "2333",
+    //   "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
+    //   "LogisticsStatus": 0,
+    //   "Thumbnail": "../../images/commodity/images1/1.jpg",
+    //   "BusinessName": "某某某"
+    // }]
   },
   OrderClick(e) {
     // let PName = this.data.PreviousClick
@@ -66,6 +40,11 @@ Page({
     //   [e.target.dataset.name]:"Clicked"
     // })
 
+  },
+  OrderDetails(e){ //详情
+    wx.navigateTo({
+      url: `/pages/CheckDetails/CheckDetails?OrderUnique=${e.currentTarget.dataset.orderunique}`
+    })
   },
   StateFn(name) {
     switch (name) {
@@ -136,10 +115,65 @@ Page({
         break;
     }
   },
+  ToBeDelivered(e){ //待发货
+    console.log(e.currentTarget.dataset.orderunique)
+    wx.request({
+      url: app.AppWeb.url + "/Order/ToBeDelivered",
+      data: {
+        OrderUnique: e.currentTarget.dataset.orderunique
+      },
+      method: "POST",
+      success: (res) => {
+        wx.reLaunch({
+          url: '/pages/Order/Order',
+        })
+      }
+    })
+  },
+  PendingReceipt(e){ //待收货
+    wx.request({
+      url: app.AppWeb.url + "/Order/PendingReceipt",
+      data: {
+        OrderUnique: e.currentTarget.dataset.orderunique
+      },
+      method: "POST",
+      success: (res) => {
+        wx.reLaunch({
+          url: '/pages/Order/Order',
+        })
+      }
+    })
+  },
+  AfterSales(e){ //售后中
+    wx.request({
+      url: app.AppWeb.url + "/Order/AfterSales",
+      data: {
+        OrderUnique: e.currentTarget.dataset.orderunique
+      },
+      method: "POST",
+      success: (res) => {
+        wx.reLaunch({
+          url: '/pages/Order/Order',
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if(this.data.Appid == ""){
+      wx.showToast({
+        title: '请先登录',
+        icon:"error",
+        duration: 2000
+      })
+      setTimeout(()=>{
+        wx.switchTab({
+          url: "/pages/Personal/Personal",
+        })
+      },2000)
+    }
     this.StateFn(options.name)
 
   },
@@ -148,7 +182,22 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    wx.request({
+      url: app.AppWeb.url + "/Order",
+      data: {
+        Appid: this.data.Appid
+      },
+      method: "POST",
+      success: (res) => {
+        let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
+        for (const key in JsonArr) { //在图片路径加上服务器地址
+          JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
+        }
+        this.setData({
+          "AllOrders": JsonArr
+        })
+      }
+    })
   },
 
   /**

@@ -11,7 +11,7 @@ Page({
   },
   CopyQRCode(e) {
     wx.setClipboardData({
-      data: this.data.Redemption_Url[e.currentTarget.dataset.key],
+      data: this.data.RedemptionCode[e.currentTarget.dataset.key].Code,
       fail(res) {
         wx.showToast({
           title: '复制失败',

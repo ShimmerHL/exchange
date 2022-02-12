@@ -1,5 +1,6 @@
 // pages/ModifySetup/ModifySetup.js
 let app = getApp()
+let Utils = require("../../utils/util")
 Page({
 
   /**
@@ -103,9 +104,8 @@ Page({
   },
   PhoneInput(e) { //电话格式
     let value = e.detail.value
-    let reg_tel = /^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/
-
-    if (!reg_tel.test(value)) {
+ 
+    if (!Utils.Reg_Phone(value)) {
       wx.showModal({
         title: '电话格式不正确',
         complete: () => {
@@ -147,10 +147,10 @@ Page({
       }
     })
   },
-  EmailInput(e) {  
+  EmailInput(e) { // 邮箱格式
     let value = e.detail.value
-    let reg_tel = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-    if (!reg_tel.test(value)) {
+    
+    if (!Utils.reg_Email(value)) {
       wx.showModal({
         title: '邮箱格式不正确',
         complete: () => {
