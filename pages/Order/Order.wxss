@@ -80,6 +80,11 @@
   padding: 10rpx 0;
 }
 
+#OrderBox .OrderInformation .ModuleBottom text{
+  font-size: 20rpx;
+  color: red;
+}
+
 #OrderBox .OrderInformation .ModuleBottom button{
   box-sizing: border-box;
   float: right;

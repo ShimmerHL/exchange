@@ -11,12 +11,12 @@
     <block wx:for="{{AllOrders}}" wx:key="this">
       <view class="Module" style="display:{{StateOne}};" wx:if="{{item.LogisticsStatus == 0}}">
         <view class="ModuleTop">
-          {{item.BusinessName}}
-          <image src="../../images/icon/youjiantou.png" />
+          {{item.BusinessName}} 
+          <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>交易成功</text>
         </view>
         <view class="ModuleContent">
-          <image src="{{item.Thumbnail}}" />
+          <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
           </view>
@@ -28,11 +28,11 @@
        <view class="Module" style="display:{{StateTwo}};" wx:elif="{{item.LogisticsStatus == 1}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
-          <image src="../../images/icon/youjiantou.png" />
+          <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>待发货</text>
         </view>
         <view class="ModuleContent">
-          <image src="{{item.Thumbnail}}" />
+          <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
           </view>
@@ -45,11 +45,11 @@
        <view class="Module" style="display:{{StateThree}};" wx:elif="{{item.LogisticsStatus == 2}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
-          <image src="../../images/icon/youjiantou.png" />
+          <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>待收货</text>
         </view>
         <view class="ModuleContent">
-          <image src="{{item.Thumbnail}}" />
+          <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
           </view>
@@ -62,11 +62,11 @@
        <view class="Module" style="display:{{StateFour}};" wx:if="{{item.LogisticsStatus == 3}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
-          <image src="../../images/icon/youjiantou.png" />
+          <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>售后中</text>
         </view>
         <view class="ModuleContent">
-          <image src="{{item.Thumbnail}}" />
+          <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
           </view>

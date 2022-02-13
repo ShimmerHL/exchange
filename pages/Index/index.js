@@ -3,15 +3,17 @@ let app = getApp();
 Page({
   data: {
     "All": "Clicked",
-    "Device": "",
-    "Furniture": "",
-    "Cosmetic": "",
+    "HomeAppliances": "",
+    "HomeGoods": "",
+    "DailyNecessities": "",
+    "SkinCare": "",
     "Other": "",
-    "StateOne": "block",
-    "StateTwo": "block",
-    "StateThree": "block",
-    "StateFour": "block",
-    "PreviousClick": "All",
+    "StateAll": "block",
+    "StateHomeAppliances": "block",
+    "StateHomeGoods": "block",
+    "StateDailyNecessities": "block",
+    "StateSkinCare": "block",
+    "StateOther": "block",
     "InputW": 720,
     "BtnDisplay": "none",
     "SearchText": [],
@@ -35,13 +37,23 @@ Page({
     //   "Frequency": "11"
     // }]
   },
-  InputWFn() {
+  InputWFn() { //首次点击搜索框
     if (this.data.SearchText.length == 0) {
       //默认获取一次列表请求
       wx.request({
         url: app.AppWeb.url + '/index/OneSearch',
         method: "GET",
         success: (res) => {
+           let JsonArr = res.data.Data
+        for (let i = 0; i < JsonArr.length; i++) {
+          for (let k = 1; k < i; k++) {
+              if(JsonArr[i].CommodityName == JsonArr[k].CommodityName){
+                JsonArr.splice(k)
+                i++
+                k++
+              }
+          }
+        }
           this.setData({
             "SearchText": res.data.Data
           })
@@ -56,7 +68,7 @@ Page({
       "SearchTitleAlignCenter": "none"
     })
   },
-  BtnNone() {
+  BtnNone() { //按下返回时清空搜索内容
     this.setData({
       "InputW": 720,
       "BtnDisplay": "none",
@@ -66,11 +78,11 @@ Page({
       "SearchValue": "" //清空搜内容
     })
   },
-  Enter(e) {
+  Enter(e) { //输入
     this.setData({
       "SearchValue": e.detail.value
     })
-    
+
     wx.request({
       url: app.AppWeb.url + '/index/EnterSearch',
       data: {
@@ -84,7 +96,7 @@ Page({
       }
     })
   },
-  Search() {
+  Search() { //搜索
 
     if (this.data.SearchValue == "") {
       wx.showToast({
@@ -129,7 +141,7 @@ Page({
       }
     })
   },
-  SearchTitleFun(e) {
+  SearchTitleFun(e) { //获取输入时的内容标题
     wx.request({
       url: app.AppWeb.url + "/index/SearchTitle",
       data: {
@@ -150,6 +162,104 @@ Page({
       }
     })
   },
+  StateFn(name) { //点击标签分类
+    switch (name) {
+      case "All":
+        this.setData({
+          "All": "Clicked",
+          "HomeAppliances": "",
+          "HomeGoods": "",
+          "DailyNecessities": "",
+          "SkinCare": "",
+          "Other": "",
+          "StateAll": "block",
+          "StateHomeAppliances": "block",
+          "StateHomeGoods": "block",
+          "StateDailyNecessities": "block",
+          "StateSkinCare": "block",
+          "StateOther": "block",
+        })
+        break;
+      case "jiadian":
+        this.setData({
+          "All": "",
+          "HomeAppliances": "Clicked",
+          "HomeGoods": "",
+          "DailyNecessities": "",
+          "SkinCare": "",
+          "Other": "",
+          "StateHomeAppliances": "block",
+          "StateHomeGoods": "none",
+          "StateDailyNecessities": "none",
+          "StateSkinCare": "none",
+          "StateOther": "none",
+        })
+        break;
+      case "jiaju":
+        this.setData({
+          "All": "",
+          "HomeAppliances": "",
+          "HomeGoods": "Clicked",
+          "DailyNecessities": "",
+          "SkinCare": "",
+          "Other": "",
+          "StateHomeAppliances": "none",
+          "StateHomeGoods": "block",
+          "StateDailyNecessities": "none",
+          "StateSkinCare": "none",
+          "StateOther": "none",
+        })
+        break;
+      case "shenghuoyongping":
+        this.setData({
+          "All": "",
+          "HomeAppliances": "",
+          "HomeGoods": "",
+          "DailyNecessities": "Clicked",
+          "SkinCare": "",
+          "Other": "",
+          "StateHomeAppliances": "none",
+          "StateHomeGoods": "none",
+          "StateDailyNecessities": "block",
+          "StateSkinCare": "none",
+          "StateOther": "none",
+        })
+        break;
+      case "hufuchanping":
+        this.setData({
+          "All": "",
+          "HomeAppliances": "",
+          "HomeGoods": "",
+          "DailyNecessities": "",
+          "SkinCare": "Clicked",
+          "Other": "",
+          "StateHomeAppliances": "none",
+          "StateHomeGoods": "none",
+          "StateDailyNecessities": "none",
+          "StateSkinCare": "block",
+          "StateOther": "none",
+        })
+        break;
+      case "qita":
+        this.setData({
+          "All": "",
+          "HomeAppliances": "",
+          "HomeGoods": "",
+          "DailyNecessities": "",
+          "SkinCare": "",
+          "Other": "Clicked",
+          "StateHomeAppliances": "none",
+          "StateHomeGoods": "none",
+          "StateDailyNecessities": "none",
+          "StateSkinCare": "none",
+          "StateOther": "block",
+        })
+        break;
+    }
+  },
+  IndexClick(e) {
+    this.StateFn(e.target.dataset.state)
+  },
   onLoad() {
     wx.request({
       url: app.AppWeb.url + "/index",
@@ -159,8 +269,10 @@ Page({
       },
       success: (res) => {
         let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
-        for (const key in JsonArr) { //在图片路径加上服务器地址
+
+        for (const key in JsonArr) { //在图片路径加上服务器地址 判断标题是否相同
           JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
+          
         }
         this.setData({
           "CommodityAll": JsonArr

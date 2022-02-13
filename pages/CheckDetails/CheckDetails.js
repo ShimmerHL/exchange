@@ -38,6 +38,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     wx.request({
       url: app.AppWeb.url +  '/CheckDetails',
       data:{
@@ -51,10 +55,14 @@ Page({
             JsonArr[key].OrderTime = JsonArr[key].OrderTime.split("T").join(" ").slice(0,19);
             JsonArr[key].StateTime = JsonArr[key].StateTime.split("T").join(" ").slice(0,19);
           }
-          console.log(JsonArr)
+          JsonArr.sort((a,b)=>{
+            console.log(a.OrderTime)
+            return a.OrderTime < b.OrderTime? -1 : 1
+          })
         this.setData({
           "FormInformation": JsonArr
         })
+        wx.hideLoading()
       }
     })
   },
@@ -91,7 +99,29 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    wx.request({
+      url: app.AppWeb.url +  '/CheckDetails',
+      data:{
+        OrderUnique: options.OrderUnique
+      },
+      method: "POST",
+      success:(res)=>{
+        let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
+          for (const key in JsonArr) { //在图片路径加上服务器地址
+            JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
+            JsonArr[key].OrderTime = JsonArr[key].OrderTime.split("T").join(" ").slice(0,19);
+            JsonArr[key].StateTime = JsonArr[key].StateTime.split("T").join(" ").slice(0,19);
+          }
+        this.setData({
+          "FormInformation": JsonArr
+        })
+        wx.hideLoading()
+      }
+    })
   },
 
   /**

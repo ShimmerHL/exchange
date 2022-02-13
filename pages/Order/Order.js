@@ -29,7 +29,7 @@ Page({
   OrderClick(e) {
     this.StateFn(e.target.dataset.state)
   },
-  OrderDetails(e){ //详情
+  OrderDetails(e) { //详情
     wx.navigateTo({
       url: `/pages/CheckDetails/CheckDetails?OrderUnique=${e.currentTarget.dataset.orderunique}`
     })
@@ -103,8 +103,7 @@ Page({
         break;
     }
   },
-  ToBeDelivered(e){ //待发货
-    console.log(e.currentTarget.dataset.orderunique)
+  ToBeDelivered(e) { //待发货
     wx.request({
       url: app.AppWeb.url + "/Order/ToBeDelivered",
       data: {
@@ -118,7 +117,7 @@ Page({
       }
     })
   },
-  PendingReceipt(e){ //待收货
+  PendingReceipt(e) { //待收货
     wx.request({
       url: app.AppWeb.url + "/Order/PendingReceipt",
       data: {
@@ -132,7 +131,7 @@ Page({
       }
     })
   },
-  AfterSales(e){ //售后中
+  AfterSales(e) { //售后中
     wx.request({
       url: app.AppWeb.url + "/Order/AfterSales",
       data: {
@@ -150,17 +149,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(this.data.Appid == ""){
+
+    if (this.data.Appid == "") {
       wx.showToast({
         title: '请先登录',
-        icon:"error",
+        icon: "error",
         duration: 2000
       })
-      setTimeout(()=>{
+      setTimeout(() => {
         wx.switchTab({
           url: "/pages/Personal/Personal",
         })
-      },2000)
+      }, 2000)
     }
     this.StateFn(options.name)
 
@@ -170,22 +170,48 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.request({
-      url: app.AppWeb.url + "/Order",
-      data: {
-        Appid: this.data.Appid
-      },
-      method: "POST",
-      success: (res) => {
-        let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
-        for (const key in JsonArr) { //在图片路径加上服务器地址
-          JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
-        }
-        this.setData({
-          "AllOrders": JsonArr
-        })
-      }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
     })
+    if (this.data.Appid !== "") {
+      wx.request({
+        url: app.AppWeb.url + "/Order",
+        data: {
+          Appid: this.data.Appid
+        },
+        method: "POST",
+        success: (res) => {
+          let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
+          for (const key in JsonArr) { //在图片路径加上服务器地址
+            JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
+            JsonArr[key].OrderTime = JsonArr[key].OrderTime.split("T").join(" ").slice(0, 19)
+          }
+
+          JsonArr.sort((a, b) => {
+            return a.OrderTime < b.OrderTime ? 1 : -1
+          })
+          this.setData({
+            "AllOrders": JsonArr
+          })
+          wx.hideLoading()
+        }
+      })
+    } else {
+      wx.hideLoading()
+      wx.showToast({
+        title: '请先登录',
+        icon: "error",
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.switchTab({
+          url: "/pages/Personal/Personal",
+        })
+      }, 2000)
+
+
+    }
   },
 
   /**
@@ -213,7 +239,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.switchTab({
+      url: '/pages/Order/Order',
+    })
   },
 
   /**

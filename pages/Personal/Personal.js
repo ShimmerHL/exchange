@@ -13,7 +13,10 @@ Page({
     "Password": "",
     "TwoPassword": "",
     "UserOpenid": "",
-    "Appid":""
+    "Appid": wx.getStorageSync('Appid'),
+    "nickName": "",
+    "EnterpriseUserLogin":wx.getStorageSync('EnterpriseUserLogin')
+
   },
   information() { //获取登录状态
     wx.getUserProfile({
@@ -73,12 +76,12 @@ Page({
 
         wx.setStorageSync('LoginStatus', "true")
         wx.setStorageSync('avatarUrl', callback.userInfo.avatarUrl)
-        wx.setStorageSync('nickName', callback.userInfo.nickName)
+        // wx.setStorageSync('nickName', callback.userInfo.nickName)
         wx.setStorageSync('Appid', AppidData)
         this.setData({
           "LoginStatus": true,
-          "avatarUrl": callback.userInfo.avatarUrl,
-          "nickName": callback.userInfo.nickName
+          "avatarUrl": callback.userInfo.avatarUrl
+         
         })
       }
     })
@@ -105,10 +108,10 @@ Page({
   },
 
   Controls(e) { //处理企业登录与窗口显示隐藏函数
-    if(this.data.Appid == ""){
+    if (this.data.Appid == "") {
       wx.showToast({
         title: '请先登录',
-        icon:"error",
+        icon: "error",
         duration: 2000
       })
       return
@@ -177,7 +180,6 @@ Page({
               'content-type': 'application/json'
             },
             success: (res) => {
-              console.log(res)
               if (res.data.Code !== 200) {
                 wx.showToast({
                   title: '该用户已存在',
@@ -192,6 +194,7 @@ Page({
               } else {
                 wx.setStorageSync("Registration", this.data.Registration)
                 wx.setStorageSync("Merchant", res.data.Merchant)
+                console.log(wx.getStorageSync('Registration'))
                 this.setData({
                   "Merchant": res.data.Merchant,
                   "EnterpriseLoginAndAdd": "none"
@@ -291,34 +294,36 @@ Page({
         })
       }
     })
+
     if (this.data.Appid !== "") {
-      wx.getStorage({
-        key: "nickName",
+      wx.request({
+        url: app.AppWeb.url + '/Personal/NickName',
+        data: {
+          Appid: this.data.Appid
+        },
+        method: "POST",
         success: (res) => {
           this.setData({
-            "nickName": res.data
-          })
-        },
-        fail: () => {
-          this.setData({
-            "nickName": ""
+            "nickName": res.data.Data[0].UserName
           })
         }
       })
+      // wx.getStorage({
+      //   key: "nickName",
+      //   success: (res) => {
+      //     this.setData({
+      //       "nickName": res.data
+      //     })
+      //   },
+      //   fail: () => {
+
+      //     this.setData({
+      //       "nickName": ""
+      //     })
+      //   }
+      // })
     }
-    wx.getStorage({
-      key: "Appid",
-      success: (res) => {
-        this.setData({
-          "Appid": res.data
-        })
-      },
-      fail: () => {
-        this.setData({
-          "LoginStatus": false
-        })
-      }
-    })
+
     wx.getStorage({
       key: "Merchant",
       success: (res) => {

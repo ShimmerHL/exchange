@@ -17,6 +17,7 @@ App({
   //   userInfo: null
   // },
   AppWeb: {
+   // url:"https://23n1203o92.51vip.biz"
     url:"http://www.shimmerhl.top",
   }
 })

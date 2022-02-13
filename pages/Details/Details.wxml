@@ -34,7 +34,7 @@
 
   <view class="Exhaustive">
   <view>商品详细</view>
-    <block wx:for="{{item.IntroduceImg}}" wx:key="*this" wx:for-item="itm">
+    <block  wx:for="{{item.IntroduceImg}}" wx:key="*this" wx:for-item="itm">
         <image lazy-load="true" show-menu-by-longpress="true" mode="widthFix" style="width: 100%;height: 500rpx" src="{{itm}}" alt="" />
     </block>
   </view>
@@ -65,15 +65,15 @@
         <view class="InputPageBottom">
             <view class="InputPageBottomBox">
               <text>输入兑换码:</text>
-              <input type="text" adjust-position="true" placeholder="请输入兑换码" bindinput="FormInformation" data-name="duihuanma"/>
+              <input type="text" adjust-position="true" placeholder="请输入兑换码" cursor-spacing='200rpx' bindinput="FormInformation" data-name="duihuanma"/>
             </view>
             <view class="InputPageBottomBox">
               <text>收货人:</text>
-              <input type="text" adjust-position="true" placeholder="请输入收货人" bindinput="FormInformation" data-name="shouhuoren" />
+              <input type="text" adjust-position="true" placeholder="请输入收货人" cursor-spacing='200rpx' bindinput="FormInformation" data-name="shouhuoren" />
             </view>
             <view class="InputPageBottomBox">
               <text>手机号码:</text>
-              <input type="text" adjust-position="true" placeholder="请输入手机号码" bindinput="FormInformation" data-name="shoujihaoma" />
+              <input type="text" adjust-position="true" placeholder="请输入手机号码" cursor-spacing='200rpx' bindinput="FormInformation" data-name="shoujihaoma" />
             </view>
             <view class="InputPageBottomBox">
               <picker mode="region" range="{{Region}}" bindchange="InputModule">
@@ -85,7 +85,7 @@
             </view>
             <view class="InputPageBottomBox">
               <text>详细地址:</text>
-              <input type="text" adjust-position="true" placeholder="请输入详细地址" bindinput="FormInformation" data-name="xinagxidizhi" />
+              <input type="text" adjust-position="true" placeholder="请输入详细地址"  cursor-spacing='200rpx' bindinput="FormInformation" data-name="xinagxidizhi" />
             </view>
             <button form-type="submit" bindtap="SubmitBtn">兑换</button>
         </view>

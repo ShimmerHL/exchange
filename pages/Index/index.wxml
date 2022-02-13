@@ -12,15 +12,97 @@
       </block>
   </view>
 </view>
-<view id="Home" wx:for="{{CommodityAll}}" wx:key="index">
-    <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
-      <view class="Home_Box">
-        <image mode="scaleToFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
-        <text>{{item.CommodityName}}</text>
-        <view>
-          <text>兑换热度: {{item.Frequency}}</text>
-          <navigator>点击查看详情</navigator>
-        </view>
+<view id="Home">
+    <view class="Classification">
+      <view class="All {{All}}" data-name="All" data-State="All" bindtap="IndexClick">全部</view>
+      <view class="HomeAppliances {{HomeAppliances}}" data-name="HomeAppliances" data-State="jiadian" bindtap="IndexClick">家电</view>
+      <view class="HomeGoods {{HomeGoods}}" data-name="HomeGoods" data-State="jiaju" bindtap="IndexClick">家居</view>
+      <view class="DailyNecessities {{DailyNecessities}}" data-name="DailyNecessities" data-State="shenghuoyongping" bindtap="IndexClick">生活用品</view>
+      <view class="SkinCare {{SkinCare}}" data-name="SkinCare" data-State="hufuchanping" bindtap="IndexClick">护肤产品</view>
+      <view class="Other {{Other}}" data-name="Other" data-State="qita" bindtap="IndexClick">其他</view>
+    </view>
+    <block wx:for="{{CommodityAll}}" wx:key="index">
+      <view class="Module" style="display:{{StateAll}};" wx:if="{{item.Label == 0}}">
+        <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+          <view class="Home_Box">
+            <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+            <text>{{item.CommodityName}}</text>
+            <view>
+              <text>兑换热度: {{item.Frequency}}</text>
+              <navigator>点击查看详情</navigator>
+            </view>
+          </view>
+        </navigator>
       </view>
-    </navigator>
+      <view class="Module" style="display:{{StateHomeAppliances}};" wx:if="{{item.Label == 1}}">
+        <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+          <view class="Home_Box">
+            <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+            <text>{{item.CommodityName}}</text>
+            <view>
+              <text>兑换热度: {{item.Frequency}}</text>
+              <navigator>点击查看详情</navigator>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <view class="Module" style="display:{{StateHomeGoods}};" wx:if="{{item.Label == 2}}">
+        <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+          <view class="Home_Box">
+            <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+            <text>{{item.CommodityName}}</text>
+            <view>
+              <text>兑换热度: {{item.Frequency}}</text>
+              <navigator>点击查看详情</navigator>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <view class="Module" style="display:{{StateDailyNecessities}};" wx:if="{{item.Label == 3}}">
+        <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+          <view class="Home_Box">
+            <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+            <text>{{item.CommodityName}}</text>
+            <view>
+              <text>兑换热度: {{item.Frequency}}</text>
+              <navigator>点击查看详情</navigator>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <view class="Module" style="display:{{StateSkinCare}};" wx:if="{{item.Label == 4}}">
+        <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+          <view class="Home_Box">
+            <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+            <text>{{item.CommodityName}}</text>
+            <view>
+              <text>兑换热度: {{item.Frequency}}</text>
+              <navigator>点击查看详情</navigator>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <view class="Module" style="display:{{StateOther}};" wx:if="{{item.Label == 5}}">
+        <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+          <view class="Home_Box">
+            <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+            <text>{{item.CommodityName}}</text>
+            <view>
+              <text>兑换热度: {{item.Frequency}}</text>
+              <navigator>点击查看详情</navigator>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <!-- <navigator open-type="navigate" url="/pages/Details/Details?GiftUnique={{item.GiftUnique}}" >
+        <view class="Home_Box">
+          <image mode="aspectFill" lazy-load="ture" src="{{item.Thumbnail}}"></image>
+          <text>{{item.CommodityName}}</text>
+          <view>
+            <text>兑换热度: {{item.Frequency}}</text>
+            <navigator>点击查看详情</navigator>
+          </view>
+        </view>
+      </navigator> -->
+    </block>
 </view>

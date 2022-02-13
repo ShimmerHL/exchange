@@ -19,7 +19,7 @@ Page({
     "IntroduceImg": [], //详情图片
     "Specification": [], //规格,
     "GiftNumber": 1,
-    "LabelArr":["家电","家具","生活用品","护肤产品","其他"],
+    "LabelArr":["家电","家居","生活用品","护肤产品","其他"],
     "Label":"5",
     "ChosenLabel":"其他",
     "Registration": wx.getStorageSync('Registration') //企业注册号
@@ -205,12 +205,11 @@ Page({
       "GiftNumber":  e.detail.value
     })
   },
-  Label(e){
+  Label(e){ //礼品标签
     this.setData({
       "Label": e.detail.value,
       "ChosenLabel": this.data.LabelArr[e.detail.value] 
     })
-    console.log(e)
   },
   formSubmit(e) { //提交表单
     let NowDate = Date.now()
@@ -390,7 +389,7 @@ Page({
             },2000)
           } else {
             wx.showToast({
-              title: '服务器超时',
+              title: '服务器繁忙',
               icon: "error",
               duration: 2000
             })

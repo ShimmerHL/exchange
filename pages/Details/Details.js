@@ -187,6 +187,7 @@ Page({
   onLoad: function (options) {
     wx.showLoading({
       title: '加载中',
+      mask: true
     })
     wx.request({
       url: app.AppWeb.url + '/Details',
@@ -198,7 +199,6 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: (res) => {
-        //console.log(res.data)
         let json = Utils.JsonObj(res.data)
         //去除空值
         for (let i = 0; i < json.CarouselPictures.length; i++) {
@@ -207,7 +207,6 @@ Page({
           } else {
             json.CarouselPictures[i] = app.AppWeb.url + json.CarouselPictures[i]
           }
-
         }
         for (let i = 0; i < json.IntroduceImg.length; i++) {
           if (json.IntroduceImg[i] == " ") {
@@ -215,7 +214,9 @@ Page({
           } else {
             json.IntroduceImg[i] = app.AppWeb.url + json.IntroduceImg[i]
           }
-
+        }
+        if(json.IntroduceImg.length == 0){
+          json.IntroduceImg = [...json.CarouselPictures]
         }
         this.setData({
           "Commodity": [json],
@@ -224,6 +225,16 @@ Page({
         wx.hideLoading()
       }
     })
+    setTimeout(()=>{
+      if(this.data.Commodity.length == 0){
+        wx.hideLoading()
+        wx.showToast({
+          title: '服务器超时',
+          icon: "error",
+          duration: 2000
+        })
+      }
+    },5000)
   },
 
   /**

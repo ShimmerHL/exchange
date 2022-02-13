@@ -58,6 +58,28 @@
   width: 100%;
 }
 
+#Home .Classification {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30rpx 20rpx 0 20rpx;
+  font-size: 25rpx;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid rgb(235, 228, 228);
+}
+
+#Home .Classification view {
+  box-sizing: border-box;
+  width: 100rpx;
+  padding-bottom: 20rpx;
+  text-align: center;
+}
+
+#Home .Classification .Clicked {
+  border-bottom: 2px solid red;
+}
+
 #Home .Home_Box {
   position: relative;
   float: left;
@@ -67,11 +89,13 @@
   border: 1px solid rgba(000, 000, 000, .3);
   border-radius: 20rpx;
   text-align: center;
+  overflow: hidden;
 }
 
 #Home .Home_Box image {
   width: 350rpx;
   height: 350rpx;
+  /* border-radius: 20rpx; */
 }
 
 #Home .Home_Box text:nth-child(2) {
