@@ -56,7 +56,7 @@
   height: 30rpx;
 }
 
-#PersonalBox .ActionBar .ActionBarBottom view {
+#PersonalBox .ActionBar .ActionBarBottom .ActionBarView {
   box-sizing: border-box;
   padding: 30rpx;
   float: left;
@@ -64,17 +64,32 @@
   text-align: center;
 }
 
-#PersonalBox .ActionBar .ActionBarBottom view image {
+#PersonalBox .ActionBar .ActionBarBottom .ActionBarView image {
+  position: relative;
   display: block;
   margin: auto;
   width: 70rpx;
   height: 70rpx;
 }
 
-#PersonalBox .ActionBar .ActionBarBottom view text {
+#PersonalBox .ActionBar .ActionBarBottom .ActionBarView text {
   display: block;
   margin-top: 10rpx;
   font-size: 25rpx;
+}
+
+#PersonalBox .ActionBar .ActionBarBottom .NotShippedNumber {
+  position: relative;
+  top: -125rpx;
+  right: -60%;
+  width: 40rpx;
+  height: 40rpx;
+  font-size: 25rpx;
+  text-align: center;
+  line-height: 40rpx;
+  background-color: rgba(255, 0, 0, .8);
+  color: #fff;
+  border-radius: 50%;
 }
 
 #PersonalBox .BusinessUsers {
@@ -106,7 +121,7 @@
   vertical-align: middle;
 }
 
-.EnterpriseLoginAndAdd{
+.EnterpriseLoginAndAdd {
   position: fixed;
   top: 0;
   left: 0;
@@ -118,13 +133,13 @@
   z-index: 999;
 }
 
-.EnterpriseLoginAndAdd .Enterprise{
+.EnterpriseLoginAndAdd .Enterprise {
   position: relative;
   box-sizing: border-box;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 600rpx;
   padding: 30rpx 0;
   text-align: center;
@@ -132,7 +147,7 @@
   border-radius: 10rpx;
 }
 
-.EnterpriseLoginAndAdd .Enterprise input{
+.EnterpriseLoginAndAdd .Enterprise input {
   width: 500rpx;
   margin: 30rpx auto 0;
   padding: 10rpx 0 10rpx 20rpx;
@@ -141,23 +156,23 @@
   border-radius: 10rpx;
 }
 
-.EnterpriseLoginAndAdd .Enterprise .EnterpriseBtn button{
-    display: inline-block;
-    margin-top: 30rpx;
-    width: 200rpx;
-    background-color: rgba(0, 0, 255,.7);
-    color: #fff;
+.EnterpriseLoginAndAdd .Enterprise .EnterpriseBtn button {
+  display: inline-block;
+  margin-top: 30rpx;
+  width: 200rpx;
+  background-color: rgba(0, 0, 255, .7);
+  color: #fff;
 }
 
-.EnterpriseLoginAndAdd .Enterprise .EnterpriseBtn button:nth-child(1){
+.EnterpriseLoginAndAdd .Enterprise .EnterpriseBtn button:nth-child(1) {
   margin-right: 30rpx;
 }
 
-.EnterpriseLoginAndAdd .Enterprise .EnterpriseBtn button:nth-child(2){
+.EnterpriseLoginAndAdd .Enterprise .EnterpriseBtn button:nth-child(2) {
   margin-left: 30rpx;
 }
 
-.EnterpriseLoginAndAdd .Enterprise .AddBtn{
+.EnterpriseLoginAndAdd .Enterprise .AddBtn {
   box-sizing: border-box;
   position: absolute;
   padding: 15rpx 30rpx;
@@ -166,12 +181,12 @@
   border-radius: 15rpx;
 }
 
-.EnterpriseLoginAndAdd .Enterprise .AddBtnOne{
+.EnterpriseLoginAndAdd .Enterprise .AddBtnOne {
   top: -50rpx;
   left: 30rpx;
 }
 
-.EnterpriseLoginAndAdd .Enterprise .AddBtnTwo{
+.EnterpriseLoginAndAdd .Enterprise .AddBtnTwo {
   top: -50rpx;
   right: 30rpx;
 }

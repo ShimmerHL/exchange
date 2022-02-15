@@ -17,27 +17,31 @@ Page({
     }],
     "Avatar": "",
     "NickName": "",
-    "Sex": "0",
+    "Sex": "",
+    "SexChange": "",
     "SexRange": ["保密", "男", "女"],
     "DateBirth": "",
+    "DateBirthChange": "",
     "Phone": "",
     "NameChange": "",
     "PhoneChange": "",
     "EmailChange": "",
-    "Appid":""
+    "Appid": ""
   },
-  ShowToastSuccess(){
+  ShowToastSuccess() {
     wx.showToast({
       title: '修改成功',
       icon: "success",
-      duration: 2000
+      duration: 2000,
+      mask: true
     })
   },
-  ShowToastError(){
+  ShowToastError() {
     wx.showToast({
       title: '修改失败',
       icon: "error",
-      duration: 2000
+      duration: 2000,
+      mask: true
     })
   },
   BindChange(e) { //性别 出生年月选择器
@@ -46,10 +50,70 @@ Page({
         this.setData({
           Sex: e.detail.value
         })
+        wx.request({
+          url: app.AppWeb.url + '/ModifySetup/ReviseSex',
+          data: {
+            Sex: this.data.Sex
+          },
+          method: "POST",
+          success: (res) => {
+            if (res.data.Code == 200) {
+              this.setData({
+                SexChange: e.detail.value
+              })
+              wx.showToast({
+                title: '修改性别成功',
+                icon: "success",
+                duration: 2000,
+                mask: true
+              })
+            } else {
+              wx.showToast({
+                title: '修改性别失败',
+                icon: "error",
+                duration: 2000,
+                mask: true
+              })
+              this.setData({
+                Sex: this.data.Sexchange
+              })
+            }
+          }
+        })
         break;
       case "DateBirth":
         this.setData({
           DateBirth: e.detail.value
+        })
+        wx.request({
+          url: app.AppWeb.url + '/ModifySetup/DateBirth',
+          data: {
+            DateBirth: this.data.DateBirth
+          },
+          method: "POST",
+          success: (res) => {
+            if (res.data.Code == 200) {
+              this.setData({
+                DateBirthChange: e.detail.value
+              })
+              wx.showToast({
+                title: '修改出生年月成功',
+                icon: "success",
+                duration: 2000,
+                mask: true
+              })
+            } else {
+              wx.showToast({
+                title: '修改出生年月失败',
+                icon: "error",
+                duration: 2000,
+                mask: true
+              })
+              this.setData({
+                DateBirth: this.data.DateBirthchange
+              })
+            }
+          }
         })
         break;
     }
@@ -79,13 +143,13 @@ Page({
         "content-type": "application/json"
       },
       success: (res) => {
-        if(res.data.Code == 200){
+        if (res.data.Code == 200) {
           this.ShowToastSuccess()
           this.setData({
             NameChange: value,
             NickName: value
           })
-        }else{
+        } else {
           this.setData({
             NameChange: this.data.NickName
           })
@@ -104,7 +168,7 @@ Page({
   },
   PhoneInput(e) { //电话格式
     let value = e.detail.value
- 
+
     if (!Utils.Reg_Phone(value)) {
       wx.showModal({
         title: '电话格式不正确',
@@ -126,13 +190,13 @@ Page({
         "content-type": "application/json"
       },
       success: (res) => {
-        if(res.data.Code == 200){
+        if (res.data.Code == 200) {
           this.ShowToastSuccess()
           this.setData({
             Phone: value,
             PhoneChange: value
           })
-        }else{
+        } else {
           this.setData({
             PhoneChange: this.data.Phone
           })
@@ -149,7 +213,7 @@ Page({
   },
   EmailInput(e) { // 邮箱格式
     let value = e.detail.value
-    
+
     if (!Utils.reg_Email(value)) {
       wx.showModal({
         title: '邮箱格式不正确',
@@ -171,13 +235,13 @@ Page({
         "content-type": "application/json"
       },
       success: (res) => {
-        if(res.data.Code == 200){
+        if (res.data.Code == 200) {
           this.ShowToastSuccess()
           this.setData({
             Email: value,
             EmailChange: value
           })
-        }else{
+        } else {
           this.setData({
             EmailChange: this.data.Email
           })
@@ -196,6 +260,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     this.setData({
       "Appid": wx.getStorageSync('Appid'),
       "Avatar": wx.getStorageSync('avatarUrl')
@@ -212,18 +279,19 @@ Page({
       success: (SucRes) => {
         let Data = SucRes.data.Data[0]
         this.setData({
-          AccountInformation:SucRes.data.Data,
-          NickName:Data.NickName,
-          NameChange:Data.NickName,
-          Phone:Data.Phone,
-          PhoneChange:Data.Phone,
-          Sex:Data.Sex,
-          SexChange:Data.Sex,
-          DateBirth:Data.DateBirth,
-          DateBirthChange:Data.DateBirth,
-          Email:Data.Email,
-          EmailChange:Data.Email
+          AccountInformation: SucRes.data.Data,
+          NickName: Data.NickName,
+          NameChange: Data.NickName,
+          Phone: Data.Phone,
+          PhoneChange: Data.Phone,
+          Sex: Data.Sex,
+          SexChange: Data.Sex,
+          DateBirth: Data.DateBirth,
+          DateBirthChange: Data.DateBirth,
+          Email: Data.Email,
+          EmailChange: Data.Email
         })
+        wx.hideLoading()
       },
       fail: (FailRes) => {
         console.log("获取AccountInformation出错啦")
@@ -240,6 +308,7 @@ Page({
         PhoneChange: this.data.AccountInformation[0].Phone,
         Appid: wx.getStorageSync('Appid'),
       })
+      wx.hideLoading()
     }
 
 

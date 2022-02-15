@@ -149,36 +149,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    if (this.data.Appid == "") {
-      wx.showToast({
-        title: '请先登录',
-        icon: "error",
-        duration: 2000
-      })
-      setTimeout(() => {
-        wx.switchTab({
-          url: "/pages/Personal/Personal",
-        })
-      }, 2000)
-    }
-    this.StateFn(options.name)
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
     wx.showLoading({
       title: '加载中',
       mask: true
     })
-    if (this.data.Appid !== "") {
+    let GetAppid = wx.getStorageSync('Appid')
+    if (GetAppid !== "") {
       wx.request({
         url: app.AppWeb.url + "/Order",
         data: {
-          Appid: this.data.Appid
+          Appid: GetAppid
         },
         method: "POST",
         success: (res) => {
@@ -192,7 +172,8 @@ Page({
             return a.OrderTime < b.OrderTime ? 1 : -1
           })
           this.setData({
-            "AllOrders": JsonArr
+            "AllOrders": JsonArr,
+            "Appid": GetAppid
           })
           wx.hideLoading()
         }
@@ -209,16 +190,22 @@ Page({
           url: "/pages/Personal/Personal",
         })
       }, 2000)
-
-
     }
+    wx.stopPullDownRefresh()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.onLoad()
   },
 
   /**
@@ -239,9 +226,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.switchTab({
-      url: '/pages/Order/Order',
-    })
+    this.onLoad()
   },
 
   /**

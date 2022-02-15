@@ -1,4 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "所有礼品"
+  "navigationBarTitleText": "所有礼品",
+  "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark"
 }

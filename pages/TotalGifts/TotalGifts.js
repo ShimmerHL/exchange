@@ -42,6 +42,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let GetRegistration = wx.getStorageSync('Registration')
     //显示加载动画
     wx.showLoading({
       title: '加载中',
@@ -49,7 +50,7 @@ Page({
     wx.request({
       url: app.AppWeb.url + '/TotalGifts',
       data: {
-        'Registration': this.data.Registration
+        'Registration': GetRegistration
       },
       method: "POST",
       header: {
@@ -75,6 +76,7 @@ Page({
         wx.hideLoading()
       }
     })
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -109,7 +111,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.onLoad()
   },
 
   /**

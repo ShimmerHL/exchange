@@ -20,7 +20,8 @@ Page({
     "SearchTitleDisplay": "none",
     "SearchTitlePlaceholder": "搜索",
     "SearchTitleAlignCenter": "center",
-    "SearchValue": "", //inputvalue
+    "SearchValue": "", //inputvalue,
+    "NoneCommodityAll":[],
     "CommodityAll": []
     // "CommodityAll": [{
     //   "GiftUnique": "",
@@ -61,15 +62,19 @@ Page({
       })
     }
     this.setData({
+      "NoneCommodityAll": this.data.CommodityAll,
+      "CommodityAll":[],
       "InputW": 500,
       "BtnDisplay": "inline-block",
       "SearchTitleDisplay": "block",
       "SearchTitlePlaceholder": "请输入搜索内容",
       "SearchTitleAlignCenter": "none"
     })
+    
   },
   BtnNone() { //按下返回时清空搜索内容
     this.setData({
+      "NoneCommodityAll": [],
       "InputW": 720,
       "BtnDisplay": "none",
       "SearchTitleDisplay": "none",
@@ -160,6 +165,7 @@ Page({
         })
         this.BtnNone() //隐藏搜索模块
       }
+      
     })
   },
   StateFn(name) { //点击标签分类
@@ -279,29 +285,14 @@ Page({
         })
       }
     })
+    wx.stopPullDownRefresh()
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.request({
-      url: app.AppWeb.url + "/index",
-      method: 'get',
-      header: {
-        'content-type': 'application/json'
-      },
-      success: (res) => {
-        let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
-        for (const key in JsonArr) { //在图片路径加上服务器地址
-          JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
-        }
-        this.setData({
-          "CommodityAll": JsonArr
-        })
-        wx.stopPullDownRefresh();
-      }
-    })
+   this.onLoad()
   },
 
   /**

@@ -100,7 +100,9 @@ Page({
     })
   },
   FormInformation(e) {//获取表单信息
-    let Time = new Date().toLocaleDateString().split("/").join("-") + " " + new Date().toTimeString().slice(0, 8)
+    let date = new Date()
+    let Hours = parseInt(date.getHours()) > 10 ? date.getHours() : "0" + date.getHours()
+    let Time = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${Hours}:${date.getMinutes()}:${date.getSeconds()}`
     switch (e.target.dataset.name) {
       case "duihuanma":
         this.setData({

@@ -8,6 +8,9 @@ Page({
     "EnterpriseAdd": "none",
     "AddBtnOne": "blue",
     "AddBtnTwo": "black",
+    "NotShippedNumber":"", //待发货数量
+    "ReceiptNumber":"",  //待收货数量
+    "AfterSaleNumber": "",  //售后中数量
     "Merchant": "",
     "Registration": "",
     "Password": "",
@@ -83,6 +86,8 @@ Page({
           "avatarUrl": callback.userInfo.avatarUrl
          
         })
+        
+        this.onLoad()
       }
     })
   },
@@ -304,24 +309,13 @@ Page({
         method: "POST",
         success: (res) => {
           this.setData({
-            "nickName": res.data.Data[0].UserName
+            "NotShippedNumber" : res.data.Data.LogisticsStatusNum[0].NotShippedNumber,
+            "ReceiptNumber" : res.data.Data.LogisticsStatusNum[0].ReceiptNumber,
+            "AfterSaleNumber" : res.data.Data.LogisticsStatusNum[0].AfterSaleNumber,
+            "nickName": res.data.Data.JsonNickName[0].UserName
           })
         }
       })
-      // wx.getStorage({
-      //   key: "nickName",
-      //   success: (res) => {
-      //     this.setData({
-      //       "nickName": res.data
-      //     })
-      //   },
-      //   fail: () => {
-
-      //     this.setData({
-      //       "nickName": ""
-      //     })
-      //   }
-      // })
     }
 
     wx.getStorage({
@@ -356,7 +350,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.onLoad()
   },
 
   /**

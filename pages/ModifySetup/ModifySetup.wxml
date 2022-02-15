@@ -15,7 +15,7 @@
         <text>性别</text>
         <text>{{SexRange[Sex]}}</text>
     </picker>
-    <picker mode="date"start="2015-09-01" end="2017-09-01" value="{{DateBirth}}"bindchange="BindChange" data-change="DateBirth">
+    <picker mode="date"start="1900-01-01" end="2022-02-01" value="{{DateBirth}}"bindchange="BindChange" data-change="DateBirth">
         <text>出生年月</text>
          <text>{{DateBirth}}</text>
     </picker>

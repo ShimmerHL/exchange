@@ -23,21 +23,30 @@
         </view>
 
         <view class="ActionBarBottom">
-            <view data-sequence="daiqueren" bindtap="ActionBar">
+            <view class="ActionBarView" data-sequence="daiqueren" bindtap="ActionBar">
                 <image src="../../images/icon/daiqueren.png"></image>
                 <text>已完成</text>
             </view>
-            <view data-sequence="daifahuo" bindtap="ActionBar">
+            <view class="ActionBarView" data-sequence="daifahuo" bindtap="ActionBar">
                 <image src="../../images/icon/daifahuo.png"></image>
                 <text>待发货</text>
+                <view wx:if="{{!NotShippedNumber == 0}}" class="NotShippedNumber">
+                    {{NotShippedNumber}}
+                </view>
             </view>
-            <view data-sequence="daishouhuo" bindtap="ActionBar">
+            <view class="ActionBarView" data-sequence="daishouhuo" bindtap="ActionBar">
                 <image src="../../images/icon/daishouhuo.png"></image>
                 <text>待收货</text>
-            </view>
-            <view data-sequence="shouhou" bindtap="ActionBar">
+                <view wx:if="{{!ReceiptNumber == 0}}" class="NotShippedNumber">
+                   {{ReceiptNumber}}
+                </view>
+            </view> 
+            <view class="ActionBarView" data-sequence="shouhou" bindtap="ActionBar">
                 <image src="../../images/icon/shouhou.png"></image>
                 <text>售后中</text>
+                <view wx:if="{{!AfterSaleNumber == 0}}" class="NotShippedNumber">
+                    {{AfterSaleNumber}}
+                </view>
             </view>
         </view>
     </view>
