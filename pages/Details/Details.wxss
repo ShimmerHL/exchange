@@ -31,19 +31,6 @@ page{
   background-color: rgba(206, 243, 147, .5) !important;
 }
 
-#DetailsBox .Frequency {
-  box-sizing: border-box;
-  width: 100%;
-  margin-top: 1%;
-  padding-right: 30rpx;
-  font-size: 30rpx;
-  color: rgb(197, 175, 193);
-}
-
-#DetailsBox .Frequency view {
-  float: right;
-}
-
 #DetailsBox .Remaining {
   margin-top: 30rpx;
   padding: 0 0 20rpx 30rpx;

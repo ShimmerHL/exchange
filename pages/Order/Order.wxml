@@ -15,7 +15,7 @@
           <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>交易成功</text>
         </view>
-        <view class="ModuleContent">
+        <view class="ModuleContent" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails">
           <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
@@ -25,13 +25,13 @@
           <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails">查看详情</button>
         </view>
       </view>
-       <view class="Module" style="display:{{StateTwo}};" wx:elif="{{item.LogisticsStatus == 1}}">
+      <view class="Module" style="display:{{StateTwo}};" wx:elif="{{item.LogisticsStatus == 1}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
           <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>待发货</text>
         </view>
-        <view class="ModuleContent">
+        <view class="ModuleContent"  data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails">
           <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
@@ -42,13 +42,14 @@
           <button size="mini" open-type="launchApp" plain="true" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails" >查看详情</button>
         </view>
       </view>
+
        <view class="Module" style="display:{{StateThree}};" wx:elif="{{item.LogisticsStatus == 2}}">
         <view class="ModuleTop">
           {{item.BusinessName}}
           <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>待收货</text>
         </view>
-        <view class="ModuleContent">
+        <view class="ModuleContent" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails">
           <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>
@@ -65,7 +66,7 @@
           <image lazy-load="ture" src="../../images/icon/youjiantou.png" />
           <text>售后中</text>
         </view>
-        <view class="ModuleContent">
+        <view class="ModuleContent" data-OrderUnique="{{item.OrderUnique}}" bindtap="OrderDetails">
           <image lazy-load="ture" src="{{item.Thumbnail}}" />
           <view>
             <text>{{item.CommodityFunllName}}</text>

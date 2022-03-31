@@ -168,6 +168,7 @@ Page({
           }
           Arr.push(s.tempFiles[i].tempFilePath)
         }
+        console.log(Arr)
         this.setData({
           IntroduceImg: Arr
         })

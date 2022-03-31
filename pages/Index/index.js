@@ -22,20 +22,20 @@ Page({
     "SearchTitleAlignCenter": "center",
     "SearchValue": "", //inputvalue,
     "NoneCommodityAll":[],
-    "CommodityAll": []
+    "CommodityAll": [],
     // "CommodityAll": [{
     //   "GiftUnique": "",
     //   "CommodityName": "蛇圣（Holy serpent）123123123213213131231323",
     //   "Thumbnail": "../../images/commodity/images1/1.jpg",
-    //   "Frequency": "11"
+    //   "Remaining": "11"
     // }, {
     //   "CommodityName": "蛇圣（Holy serpent）",
     //   "Thumbnail": "../../images/commodity/images1/1.jpg",
-    //   "Frequency": "11"
+    //   "Remaining": "11"
     // }, {
     //   "CommodityName": "蛇圣（Holy serpent）",
     //   "Thumbnail": "../../images/commodity/images1/1.jpg",
-    //   "Frequency": "11"
+    //   "Remaining": "11"
     // }]
   },
   InputWFn() { //首次点击搜索框
@@ -75,6 +75,7 @@ Page({
   BtnNone() { //按下返回时清空搜索内容
     this.setData({
       "NoneCommodityAll": [],
+      "CommodityAll":this.data.NoneCommodityAll,
       "InputW": 720,
       "BtnDisplay": "none",
       "SearchTitleDisplay": "none",
@@ -139,6 +140,7 @@ Page({
           }
           this.setData({
             "CommodityAll": JsonArr,
+            "NoneCommodityAll": JsonArr,
             "SearchValue": "" //清空搜内容
           })
           this.BtnNone() //隐藏搜索模块
@@ -147,6 +149,9 @@ Page({
     })
   },
   SearchTitleFun(e) { //获取输入时的内容标题
+    this.setData({
+      "CommodityAll": []
+    })
     wx.request({
       url: app.AppWeb.url + "/index/SearchTitle",
       data: {
@@ -160,6 +165,7 @@ Page({
         }
         this.setData({
           "CommodityAll": JsonArr,
+          "NoneCommodityAll": JsonArr,
           "SearchValue": "", //清空内容
           "SearchText": [] //清空内容
         })

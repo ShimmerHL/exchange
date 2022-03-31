@@ -13,10 +13,6 @@
     <button open-type="share" size="mini">分享</button>
   </view>
 
-  <view class="Frequency">
-    <view>兑换热度: {{item.Frequency}} 件</view>
-  </view>
-
   <view class="Remaining">
     <text>剩余数量: {{item.Remaining}}</text>
   </view>
@@ -33,7 +29,7 @@
   <view class="BusinessName">发布企业名:{{item.BusinessName}}</view>
 
   <view class="Exhaustive">
-  <view>商品详细</view>
+  <view>礼品详细</view>
     <block  wx:for="{{item.IntroduceImg}}" wx:key="*this" wx:for-item="itm">
         <image lazy-load="true" show-menu-by-longpress="true" mode="widthFix" style="width: 100%;height: 500rpx" src="{{itm}}" alt="" />
     </block>
@@ -44,7 +40,7 @@
   </view>
 
   
-  <Button id="SubmitRedemption" type="default" bindtap="Exchange">兑换商品</Button>
+  <Button id="SubmitRedemption" type="default" bindtap="Exchange">兑换礼品</Button>
 </view>
 
   <view id="InputPage" style="display:{{InputPageBoxDisplay}};">

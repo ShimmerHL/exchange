@@ -16,13 +16,13 @@
     </view>
     <view class="CommodityName">
       <view>
-        <text>商品缩略名: </text>
-        <input type="text" placeholder="请输入商品缩略名" data-name= "CommodityName" bindinput="newforms" />
+        <text>礼品缩略名: </text>
+        <input type="text" placeholder="请输入礼品缩略名" data-name= "CommodityName" bindinput="newforms" />
         <text class="warn" style="display:{{CommodityNameWarn}}">该项不能为空!</text>
       </view>
       <view>
-        <text>商品全名: </text>
-        <input type="text" placeholder="请输入商品全名" data-name= "CommodityFunllName" bindinput="newforms" />
+        <text>礼品全名: </text>
+        <input type="text" placeholder="请输入礼品全名" data-name= "CommodityFunllName" bindinput="newforms" />
         <text class="warn" style="display:{{CommodityFunllNameWarn}}">该项不能为空!</text>
       </view>
       <view>
@@ -52,7 +52,7 @@
       </view>
     </view>
     <view class="Label">
-      <view class="CarouselText">商品标签: </view>
+      <view class="CarouselText">礼品标签: </view>
       <picker bindchange="Label" value="{{index}}" range="{{LabelArr}}">
         <view class="picker">
           当前选择：<text>{{LabelArr[index]}}{{ChosenLabel}}</text>

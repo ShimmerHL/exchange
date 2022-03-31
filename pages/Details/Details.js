@@ -100,32 +100,25 @@ Page({
     })
   },
   FormInformation(e) {//获取表单信息
-    let date = new Date()
-    let Hours = parseInt(date.getHours()) > 10 ? date.getHours() : "0" + date.getHours()
-    let Time = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${Hours}:${date.getMinutes()}:${date.getSeconds()}`
     switch (e.target.dataset.name) {
       case "duihuanma":
         this.setData({
           RedemptionCode: e.detail.value,
-          OrderTime: Time
         })
         break;
       case "shouhuoren":
         this.setData({
           Receiver: e.detail.value,
-          OrderTime: Time
         })
         break;
       case "shoujihaoma":
         this.setData({
           Phone: e.detail.value,
-          OrderTime: Time
         })
         break;
       case "xinagxidizhi":
         this.setData({
           Address: e.detail.value,
-          OrderTime: Time
         })
         break;
 
@@ -155,6 +148,14 @@ Page({
       })
       return
     }
+    //获取当前时间
+    let date = new Date()
+    let Hours = parseInt(date.getHours()) >= 10 ? date.getHours() : "0" +date.getHours()
+    let Minutes = parseInt(date.getMinutes()) >= 10 ? date.getMinutes() : "0" +date.getMinutes()
+    let Month = parseInt(date.getMonth()) >= 10 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1)
+    let Time = `${date.getFullYear()}-${Month}-${date.getDate()} ${Hours}:${Minutes}:${date.getSeconds()}`
+
+
     wx.request({
       url: app.AppWeb.url + '/Details/Submit',
       data: {
@@ -165,7 +166,7 @@ Page({
         Phone: this.data.Phone, 
         Region: this.data.Region.join(" "),
         Address: this.data.Address, 
-        OrderTime: this.data.OrderTime, 
+        OrderTime: Time, 
       },
       method: "POST",
       success: (res) => {
