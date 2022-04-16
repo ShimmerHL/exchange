@@ -52,7 +52,6 @@ Page({
                     console.log("请求失败")
                     return;
                   }
-
                 },
                 fail: (ReqFail) => {
                   wx.showToast({
@@ -111,7 +110,6 @@ Page({
       url: '/pages/TotalGifts/TotalGifts'
     })
   },
-
   Controls(e) { //处理企业登录与窗口显示隐藏函数
     if (this.data.Appid == "") {
       wx.showToast({
@@ -128,6 +126,14 @@ Page({
         })
         break;
       case "denglu":
+        if (this.data.Registration == "" &&this.data.Password == "" ) {
+          wx.showToast({
+            title: '账号或密码不能为空',
+            icon: "none",
+            duration: 2000
+          })
+          return
+        }
         wx.request({
           url: app.AppWeb.url + '/EnterpriseUserLogin',
           data: {
@@ -156,7 +162,7 @@ Page({
             }
             if (res.data.Code == 406 && res.data.mgs == "RegistrationError") {
               wx.showToast({
-                title: '账号或密码不正确请重新登陆',
+                title: '账号或密码不正确请重新输入',
                 icon: "none",
                 duration: 2000
               })
@@ -172,6 +178,14 @@ Page({
         })
         break;
       case "zhuce":
+        if (this.data.Registration == "" && this.data.Password == ""&& this.data.TwoPassword == "" ) {
+          wx.showToast({
+            title: '输入的信息不完整',
+            icon: "none",
+            duration: 2000
+          })
+          return
+        }
         if (this.data.Password == this.data.TwoPassword) {
           wx.request({
             url: app.AppWeb.url + '/EnterpriseUserAdd',

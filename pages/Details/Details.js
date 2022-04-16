@@ -24,8 +24,8 @@ Page({
         promise
       }
     },
-    "Appid": wx.getStorageSync('Appid'),
-    "GiftUnique":"",
+    "Appid": "",
+    "GiftUnique": "",
     "IntroduceImgOne": "",
     "CommodityFunllName": "",
     "InputPageBoxDisplay": "none",
@@ -86,7 +86,7 @@ Page({
       "InputPageBoxDisplay": "block",
     })
   },
-  HowHide() {//点击黑色区域或者叉号影藏填写信息界面
+  HowHide() { //点击黑色区域或者叉号影藏填写信息界面
     this.setData({
       "InputPageCOlor": "",
       "IntroduceImgOne": "",
@@ -94,12 +94,12 @@ Page({
       "InputPageBoxDisplay": "none"
     })
   },
-  InputModule(e) {//三级联动
+  InputModule(e) { //三级联动
     this.setData({
       "Region": e.detail.value
     })
   },
-  FormInformation(e) {//获取表单信息
+  FormInformation(e) { //获取表单信息
     switch (e.target.dataset.name) {
       case "duihuanma":
         this.setData({
@@ -124,15 +124,24 @@ Page({
 
     }
   },
-  SubmitBtn() {  //提交表单
-    if(this.data.RedemptionCode == "" || this.data.Receiver == ""|| this.data.Phone == ""|| this.data.Region == ""){
+  SubmitBtn() { //提交表单
+    if(this.data.Appid == ""){
+      wx.showToast({
+        title: '请登录后再进行兑换!',
+        icon: "none",
+        duration: 2000
+      })
+      return
+    }
+    if (this.data.RedemptionCode == "" || this.data.Receiver == "" || this.data.Phone == "" || this.data.Region == "") {
       wx.showToast({
         title: '请填写完对应的信息',
         icon: "none",
         duration: 2000
       })
       return
-    }if(this.data.Receiver.length >= 26){
+    }
+    if (this.data.Receiver.length >= 26) {
       wx.showToast({
         title: '接收者姓名过长',
         icon: "error",
@@ -140,7 +149,7 @@ Page({
       })
       return
     }
-    if(!Utils.Reg_Phone(this.data.Phone)){
+    if (!Utils.Reg_Phone(this.data.Phone)) {
       wx.showToast({
         title: '手机格式不正确',
         icon: "error",
@@ -150,8 +159,8 @@ Page({
     }
     //获取当前时间
     let date = new Date()
-    let Hours = parseInt(date.getHours()) >= 10 ? date.getHours() : "0" +date.getHours()
-    let Minutes = parseInt(date.getMinutes()) >= 10 ? date.getMinutes() : "0" +date.getMinutes()
+    let Hours = parseInt(date.getHours()) >= 10 ? date.getHours() : "0" + date.getHours()
+    let Minutes = parseInt(date.getMinutes()) >= 10 ? date.getMinutes() : "0" + date.getMinutes()
     let Month = parseInt(date.getMonth()) >= 10 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1)
     let Time = `${date.getFullYear()}-${Month}-${date.getDate()} ${Hours}:${Minutes}:${date.getSeconds()}`
 
@@ -161,26 +170,26 @@ Page({
       data: {
         Appid: this.data.Appid,
         GiftUnique: this.data.GiftUnique,
-        RedemptionCode: this.data.RedemptionCode, 
-        Receiver: this.data.Receiver, 
-        Phone: this.data.Phone, 
+        RedemptionCode: this.data.RedemptionCode,
+        Receiver: this.data.Receiver,
+        Phone: this.data.Phone,
         Region: this.data.Region.join(" "),
-        Address: this.data.Address, 
-        OrderTime: Time, 
+        Address: this.data.Address,
+        OrderTime: Time,
       },
       method: "POST",
       success: (res) => {
-        if(res.data.Code !== 200){
+        if (res.data.Code !== 200) {
           wx.showToast({
             title: '兑换码不正确或已使用或企业不对',
-            icon:"none",
+            icon: "none",
             duration: 3000
           })
           return
         }
-      wx.navigateTo({
-        url: `/pages/CheckDetails/CheckDetails?OrderUnique=${res.data.Data[0].OrderUnique}`
-      })
+        wx.navigateTo({
+          url: `/pages/CheckDetails/CheckDetails?OrderUnique=${res.data.Data[0].OrderUnique}`
+        })
       }
     })
   },
@@ -192,6 +201,11 @@ Page({
       title: '加载中',
       mask: true
     })
+
+    this.setData({
+      Appid:wx.getStorageSync('Appid') //获取一次appid
+    })
+
     wx.request({
       url: app.AppWeb.url + '/Details',
       data: {
@@ -218,7 +232,7 @@ Page({
             json.IntroduceImg[i] = app.AppWeb.url + json.IntroduceImg[i]
           }
         }
-        if(json.IntroduceImg.length == 0){
+        if (json.IntroduceImg.length == 0) {
           json.IntroduceImg = [...json.CarouselPictures]
         }
         this.setData({
@@ -228,8 +242,8 @@ Page({
         wx.hideLoading()
       }
     })
-    setTimeout(()=>{
-      if(this.data.Commodity.length == 0){
+    setTimeout(() => {
+      if (this.data.Commodity.length == 0) {
         wx.hideLoading()
         wx.showToast({
           title: '服务器超时',
@@ -237,7 +251,7 @@ Page({
           duration: 2000
         })
       }
-    },5000)
+    }, 5000)
   },
 
   /**

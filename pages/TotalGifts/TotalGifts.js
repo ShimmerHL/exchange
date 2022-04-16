@@ -13,11 +13,6 @@ Page({
     //   "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
     //   "Exist": 0,
     //   "Thumbnail": "../../images/commodity/images1/1.jpg",
-    // }, {
-    //   "GiftUnique": "3332",
-    //   "CommodityFunllName": "ANC智能主动降噪无线蓝牙耳机头戴式环绕隔音耳麦 【黑色】ANC降噪旗舰级音质",
-    //   "Exist": 0,
-    //   "Thumbnail": "../../images/commodity/images1/1.jpg",
     // }]
   },
   RemoveGift(e) {

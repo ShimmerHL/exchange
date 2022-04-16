@@ -8,6 +8,10 @@ Page({
   data: {
     "OrderUnique": "",
     "RedemptionCode": []
+    // [{
+    //   Code:""8BvNZKXmifnka31y"",
+    //   Used:"0"
+    // }]
   },
   CopyQRCode(e) {
     wx.setClipboardData({
@@ -37,6 +41,7 @@ Page({
         'content-type': 'application/json'
       },
       success: (ReqRes) => {
+        console.log( ReqRes.data.Data)
         this.setData({
           "RedemptionCode": ReqRes.data.Data
         })

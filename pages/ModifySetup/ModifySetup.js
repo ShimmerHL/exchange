@@ -7,14 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    "AccountInformation": [{
-      "Avatar": "",
-      "NickName": "",
-      "Sex": "0",
-      "DateBirth": "",
-      "Phone": "",
-      "Email": ""
-    }],
+    // "AccountInformation": [{
+    //   "Avatar": "",
+    //   "NickName": "",
+    //   "Sex": "0",
+    //   "DateBirth": "",
+    //   "Phone": "",
+    //   "Email": ""
+    // }],
     "Avatar": "",
     "NickName": "",
     "Sex": "",
@@ -279,7 +279,6 @@ Page({
       success: (SucRes) => {
         let Data = SucRes.data.Data[0]
         this.setData({
-          AccountInformation: SucRes.data.Data,
           NickName: Data.NickName,
           NameChange: Data.NickName,
           Phone: Data.Phone,
@@ -294,24 +293,10 @@ Page({
         wx.hideLoading()
       },
       fail: (FailRes) => {
-        console.log("获取AccountInformation出错啦")
+        console.log("获取信息出错啦")
       }
     })
-
-    if (this.data.AccountInformation.length == 0) { //没有数据则获取本地
-      console.log("获取了本地数据")
-      this.setData({
-        Avatar: wx.getStorageSync('avatarUrl'),
-        NickName: wx.getStorageSync('nickName'),
-        NameChange: wx.getStorageSync('nickName'),
-        Phone: this.data.AccountInformation[0].Phone,
-        PhoneChange: this.data.AccountInformation[0].Phone,
-        Appid: wx.getStorageSync('Appid'),
-      })
       wx.hideLoading()
-    }
-
-
   },
 
   /**

@@ -2,7 +2,7 @@
  <view id="ModifySetupHome">
   <view class="ModifySetupBorder" />
 
-  <view class="ModifySetupBox" wx:for="{{AccountInformation}}" wx:key="index">
+  <view class="ModifySetupBox">
     <view class="Avatar">
       <text>头像</text>
       <image src="{{Avatar}}" />

@@ -17,6 +17,7 @@ Page({
     "InputW": 720,
     "BtnDisplay": "none",
     "SearchText": [],
+    //"SearchText":[{CommodityName:"COSTA经典保温杯",GiftUnique:"p2UiLwzEeXKkrCvJ1644783610425"}]
     "SearchTitleDisplay": "none",
     "SearchTitlePlaceholder": "搜索",
     "SearchTitleAlignCenter": "center",
@@ -24,15 +25,7 @@ Page({
     "NoneCommodityAll":[],
     "CommodityAll": [],
     // "CommodityAll": [{
-    //   "GiftUnique": "",
-    //   "CommodityName": "蛇圣（Holy serpent）123123123213213131231323",
-    //   "Thumbnail": "../../images/commodity/images1/1.jpg",
-    //   "Remaining": "11"
-    // }, {
-    //   "CommodityName": "蛇圣（Holy serpent）",
-    //   "Thumbnail": "../../images/commodity/images1/1.jpg",
-    //   "Remaining": "11"
-    // }, {
+    //   "GiftUnique": "p2UiLwzEeXKkrCvJ1644783610425",
     //   "CommodityName": "蛇圣（Holy serpent）",
     //   "Thumbnail": "../../images/commodity/images1/1.jpg",
     //   "Remaining": "11"
@@ -88,7 +81,7 @@ Page({
     this.setData({
       "SearchValue": e.detail.value
     })
-
+    //当内容发生改变时向后台发送搜索请求
     wx.request({
       url: app.AppWeb.url + '/index/EnterSearch',
       data: {
@@ -96,6 +89,7 @@ Page({
       },
       method: "POST",
       success: (res) => {
+        console.log(res.data.Data)
         this.setData({
           "SearchText": res.data.Data
         })
@@ -282,9 +276,8 @@ Page({
       success: (res) => {
         let JsonArr = JSON.parse(JSON.stringify(res.data.Data)) //转换对象
 
-        for (const key in JsonArr) { //在图片路径加上服务器地址 判断标题是否相同
+        for (const key in JsonArr) { //在图片路径加上服务器地址 
           JsonArr[key].Thumbnail = app.AppWeb.url + JsonArr[key].Thumbnail
-          
         }
         this.setData({
           "CommodityAll": JsonArr
