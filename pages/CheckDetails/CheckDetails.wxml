@@ -20,11 +20,11 @@
       </view>
 
       <view class="CommodityInformation">
-          <view class="InformationTop">
+          <view class="InformationTop" bindtap="JumpDetails">
             <text>{{item.BusinessName}}</text>
             <image src="../../images/icon/youjiantou.png"></image>
           </view>
-          <view  class="InformationContent">
+          <view  class="InformationContent" bindtap="JumpDetails">
             <image src="{{item.Thumbnail}}"></image>
             <view>
               <text>{{item.CommodityFunllName}}</text>

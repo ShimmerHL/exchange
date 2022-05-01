@@ -34,6 +34,11 @@ Page({
       }
     })
   },
+  JumpDetails(){
+    wx.navigateTo({
+      url: `/pages/Details/Details?GiftUnique=${this.data.FormInformation[0].GiftUnique}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
