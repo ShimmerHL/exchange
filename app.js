@@ -18,7 +18,5 @@ App({
   // },
   AppWeb: {
     //url:"http://localhost:3000",
-   //url:"https://www.shimmerhl.top",
-   url:"https://23n1203o92.51vip.biz",
   }
 })
